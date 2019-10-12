@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.atmos.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_schedule"
+        android:name="com.example.atmos.ui.schedule.ScheduleFragment"
+        android:label="@string/menu_schedule"
+        tools:layout="@layout/fragment_schedule" />
+
+    <fragment
+        android:id="@+id/nav_contact"
+        android:name="com.example.atmos.ui.contactus.ContactUsFragment"
+        android:label="@string/menu_contact"
+        tools:layout="@layout/fragment_contact_us" />
+
+    <fragment
+        android:id="@+id/nav_about"
+        android:name="com.example.atmos.ui.aboutus.AboutUsFragment"
+        android:label="@string/menu_about"
+        tools:layout="@layout/fragment_about_us" />
+
+    <fragment
+        android:id="@+id/nav_credits"
+        android:name="com.example.atmos.ui.appcredits.AppCreditsFragment"
+        android:label="@string/menu_credits"
+        tools:layout="@layout/fragment_app_credits" />
+
+    <fragment
+        android:id="@+id/nav_reachus"
+        android:name="com.example.atmos.ui.reachus.ReachUsFragment"
+        android:label="@string/menu_reachus"
+        tools:layout="@layout/fragment_reach_us" />
+    <fragment
+        android:id="@+id/nav_map"
+        android:name="com.example.atmos.ui.campusmap.CampusMapFragment"
+        android:label="@string/menu_map"
+        tools:layout="@layout/fragment_campus_map" />
+    <fragment
+        android:id="@+id/nav_notifications"
+        android:name="com.example.atmos.ui.notifications.NotificationsFragment"
+        android:label="@string/menu_notifications"
+        tools:layout="@layout/fragment_notifications" />
+
+</navigation>
