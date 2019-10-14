@@ -27,7 +27,7 @@ public class HomeFragment extends Fragment {
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
-        ArrayList<Event> upcomingEvents = new ArrayList<>();                                
+        ArrayList<Event> upcomingEvents = new ArrayList<>();
         //TODO: Get announcements from API call and store them in this array
 
 
