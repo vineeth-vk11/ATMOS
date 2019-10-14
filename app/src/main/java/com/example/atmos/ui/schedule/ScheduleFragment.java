@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.atmos.R;
@@ -36,7 +37,6 @@ public class ScheduleFragment extends Fragment {
 
     private ArrayList<ScheduleEvent> events;
 
-    private int scrollPosition;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -54,38 +54,39 @@ public class ScheduleFragment extends Fragment {
         mDayThrreeCardView = root.findViewById(R.id.day_three_header_card_view);
 
         events = new ArrayList<>();
-        events.add(new ScheduleEvent(new Date(), "Algomaniac", "G-101", 1, 1));
-        events.add(new ScheduleEvent(new Date(), "Algomaniac", "G-101", 1, 1));
-        events.add(new ScheduleEvent(new Date(), "Algomaniac", "G-101", 1, 1));
-        events.add(new ScheduleEvent(new Date(), "Algomaniac", "G-101", 1, 1));
-        events.add(new ScheduleEvent(new Date(), "Algomaniac", "G-101", 1, 1));
-        events.add(new ScheduleEvent(new Date(), "Algomaniac", "G-101", 1, 1));
-        events.add(new ScheduleEvent(new Date(), "Panel discussion", "Auditorium", 2, 1));
-        events.add(new ScheduleEvent(new Date(), "Panel discussion", "Auditorium", 2, 1));
-        events.add(new ScheduleEvent(new Date(), "Panel discussion", "Auditorium", 2, 1));
-        events.add(new ScheduleEvent(new Date(), "Panel discussion", "Auditorium", 2, 1));
-        events.add(new ScheduleEvent(new Date(), "Panel discussion", "Auditorium", 2, 1));
-        events.add(new ScheduleEvent(new Date(), "Panel discussion", "Auditorium", 2, 1));
-        events.add(new ScheduleEvent(new Date(), "Panel discussion", "Auditorium", 2, 1));
-        events.add(new ScheduleEvent(new Date(), "Panel discussion", "Auditorium", 2, 1));
-        events.add(new ScheduleEvent(new Date(), "Panel discussion", "Auditorium", 2, 1));
-        events.add(new ScheduleEvent(new Date(), "Panel discussion", "Auditorium", 2, 1));
-        events.add(new ScheduleEvent(new Date(), "Panel discussion", "Auditorium", 2, 1));
-        events.add(new ScheduleEvent(new Date(), "Panel discussion", "Auditorium", 2, 1));
-        events.add(new ScheduleEvent(new Date(), "Panel discussion", "Auditorium", 2, 1));
-        events.add(new ScheduleEvent(new Date(), "Competitive coding wrokshop", "F-204", 3, 1));
-        events.add(new ScheduleEvent(new Date(), "Competitive coding wrokshop", "F-204", 3, 1));
-        events.add(new ScheduleEvent(new Date(), "Competitive coding wrokshop", "F-204", 3, 1));
-        events.add(new ScheduleEvent(new Date(), "Competitive coding wrokshop", "F-204", 3, 1));
-        events.add(new ScheduleEvent(new Date(), "Competitive coding wrokshop", "F-204", 3, 1));
-        events.add(new ScheduleEvent(new Date(), "Competitive coding wrokshop", "F-204", 3, 1));
-        events.add(new ScheduleEvent(new Date(), "Competitive coding wrokshop", "F-204", 3, 1));
-        events.add(new ScheduleEvent(new Date(), "Competitive coding wrokshop", "F-204", 3, 1));
-        events.add(new ScheduleEvent(new Date(), "Competitive coding wrokshop", "F-204", 3, 1));
-        events.add(new ScheduleEvent(new Date(), "Competitive coding wrokshop", "F-204", 3, 1));
-        events.add(new ScheduleEvent(new Date(), "Competitive coding wrokshop", "F-204", 3, 1));
-        events.add(new ScheduleEvent(new Date(), "Competitive coding wrokshop", "F-204", 3, 1));
-        events.add(new ScheduleEvent(new Date(), "Competitive coding wrokshop", "F-204", 3, 1));
+        Date date = new Date();
+        events.add(new ScheduleEvent(date, "Algomaniac", "G-101", 1, 1));
+        events.add(new ScheduleEvent(date, "Algomaniac", "G-101", 1, 1));
+        events.add(new ScheduleEvent(date, "Algomaniac", "G-101", 1, 1));
+        events.add(new ScheduleEvent(date, "Algomaniac", "G-101", 1, 1));
+        events.add(new ScheduleEvent(date, "Algomaniac", "G-101", 1, 1));
+        events.add(new ScheduleEvent(date, "Algomaniac", "G-101", 1, 1));
+        events.add(new ScheduleEvent(date, "Panel discussion", "Auditorium", 2, 1));
+        events.add(new ScheduleEvent(date, "Panel discussion", "Auditorium", 2, 1));
+        events.add(new ScheduleEvent(date, "Panel discussion", "Auditorium", 2, 1));
+        events.add(new ScheduleEvent(date, "Panel discussion", "Auditorium", 2, 1));
+        events.add(new ScheduleEvent(date, "Panel discussion", "Auditorium", 2, 1));
+        events.add(new ScheduleEvent(date, "Panel discussion", "Auditorium", 2, 1));
+        events.add(new ScheduleEvent(date, "Panel discussion", "Auditorium", 2, 1));
+        events.add(new ScheduleEvent(date, "Panel discussion", "Auditorium", 2, 1));
+        events.add(new ScheduleEvent(date, "Panel discussion", "Auditorium", 2, 1));
+        events.add(new ScheduleEvent(date, "Panel discussion", "Auditorium", 2, 1));
+        events.add(new ScheduleEvent(date, "Panel discussion", "Auditorium", 2, 1));
+        events.add(new ScheduleEvent(date, "Panel discussion", "Auditorium", 2, 1));
+        events.add(new ScheduleEvent(date, "Panel discussion", "Auditorium", 2, 1));
+        events.add(new ScheduleEvent(date, "Competitive coding wrokshop", "F-204", 3, 1));
+        events.add(new ScheduleEvent(date, "Competitive coding wrokshop", "F-204", 3, 1));
+        events.add(new ScheduleEvent(date, "Competitive coding wrokshop", "F-204", 3, 1));
+        events.add(new ScheduleEvent(date, "Competitive coding wrokshop", "F-204", 3, 1));
+        events.add(new ScheduleEvent(date, "Competitive coding wrokshop", "F-204", 3, 1));
+        events.add(new ScheduleEvent(date, "Competitive coding wrokshop", "F-204", 3, 1));
+        events.add(new ScheduleEvent(date, "Competitive coding wrokshop", "F-204", 3, 1));
+        events.add(new ScheduleEvent(date, "Competitive coding wrokshop", "F-204", 3, 1));
+        events.add(new ScheduleEvent(date, "Competitive coding wrokshop", "F-204", 3, 1));
+        events.add(new ScheduleEvent(date, "Competitive coding wrokshop", "F-204", 3, 1));
+        events.add(new ScheduleEvent(date, "Competitive coding wrokshop", "F-204", 3, 1));
+        events.add(new ScheduleEvent(date, "Competitive coding wrokshop", "F-204", 3, 1));
+        events.add(new ScheduleEvent(date, "Competitive coding wrokshop", "F-204", 3, 1));
         //TODO: Get scheduled events and store them in ArrayList
 
         ScheduleAdapter adapter = new ScheduleAdapter(events);
@@ -104,20 +105,50 @@ public class ScheduleFragment extends Fragment {
                 Log.d("First visible item pos", Integer.toString(position));
                 int day = events.get(position).getDay();
                 switch(day) {
-                    case 1:
-                        setDayOne();
-                        break;
                     case 2:
                         setDayTwo();
                         break;
                     case 3:
                         setDayThree();
                         break;
+                    case 1:
                     default:
                         setDayOne();
                 }
             }
         });
+
+        final RecyclerView.SmoothScroller smoothScroller = new LinearSmoothScroller(getContext()) {
+            @Override protected int getVerticalSnapPreference() {
+                return LinearSmoothScroller.SNAP_TO_START;
+            }
+        };
+
+
+        mDayOneCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                smoothScroller.setTargetPosition(0);
+                manager.startSmoothScroll(smoothScroller);
+            }
+        });
+
+        mDayTwoCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                smoothScroller.setTargetPosition(6);
+                manager.startSmoothScroll(smoothScroller);
+            }
+        });
+
+        mDayThrreeCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                smoothScroller.setTargetPosition(19);
+                manager.startSmoothScroll(smoothScroller);
+            }
+        });
+
         return root;
     }
 
