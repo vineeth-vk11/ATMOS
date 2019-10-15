@@ -54,39 +54,8 @@ public class ScheduleFragment extends Fragment {
         mDayThrreeCardView = root.findViewById(R.id.day_three_header_card_view);
 
         events = new ArrayList<>();
-        Date date = new Date();
-        events.add(new ScheduleEvent(date, "Algomaniac", "G-101", 1, 1));
-        events.add(new ScheduleEvent(date, "Algomaniac", "G-101", 1, 1));
-        events.add(new ScheduleEvent(date, "Algomaniac", "G-101", 1, 1));
-        events.add(new ScheduleEvent(date, "Algomaniac", "G-101", 1, 1));
-        events.add(new ScheduleEvent(date, "Algomaniac", "G-101", 1, 1));
-        events.add(new ScheduleEvent(date, "Algomaniac", "G-101", 1, 1));
-        events.add(new ScheduleEvent(date, "Panel discussion", "Auditorium", 2, 1));
-        events.add(new ScheduleEvent(date, "Panel discussion", "Auditorium", 2, 1));
-        events.add(new ScheduleEvent(date, "Panel discussion", "Auditorium", 2, 1));
-        events.add(new ScheduleEvent(date, "Panel discussion", "Auditorium", 2, 1));
-        events.add(new ScheduleEvent(date, "Panel discussion", "Auditorium", 2, 1));
-        events.add(new ScheduleEvent(date, "Panel discussion", "Auditorium", 2, 1));
-        events.add(new ScheduleEvent(date, "Panel discussion", "Auditorium", 2, 1));
-        events.add(new ScheduleEvent(date, "Panel discussion", "Auditorium", 2, 1));
-        events.add(new ScheduleEvent(date, "Panel discussion", "Auditorium", 2, 1));
-        events.add(new ScheduleEvent(date, "Panel discussion", "Auditorium", 2, 1));
-        events.add(new ScheduleEvent(date, "Panel discussion", "Auditorium", 2, 1));
-        events.add(new ScheduleEvent(date, "Panel discussion", "Auditorium", 2, 1));
-        events.add(new ScheduleEvent(date, "Panel discussion", "Auditorium", 2, 1));
-        events.add(new ScheduleEvent(date, "Competitive coding wrokshop", "F-204", 3, 1));
-        events.add(new ScheduleEvent(date, "Competitive coding wrokshop", "F-204", 3, 1));
-        events.add(new ScheduleEvent(date, "Competitive coding wrokshop", "F-204", 3, 1));
-        events.add(new ScheduleEvent(date, "Competitive coding wrokshop", "F-204", 3, 1));
-        events.add(new ScheduleEvent(date, "Competitive coding wrokshop", "F-204", 3, 1));
-        events.add(new ScheduleEvent(date, "Competitive coding wrokshop", "F-204", 3, 1));
-        events.add(new ScheduleEvent(date, "Competitive coding wrokshop", "F-204", 3, 1));
-        events.add(new ScheduleEvent(date, "Competitive coding wrokshop", "F-204", 3, 1));
-        events.add(new ScheduleEvent(date, "Competitive coding wrokshop", "F-204", 3, 1));
-        events.add(new ScheduleEvent(date, "Competitive coding wrokshop", "F-204", 3, 1));
-        events.add(new ScheduleEvent(date, "Competitive coding wrokshop", "F-204", 3, 1));
-        events.add(new ScheduleEvent(date, "Competitive coding wrokshop", "F-204", 3, 1));
-        events.add(new ScheduleEvent(date, "Competitive coding wrokshop", "F-204", 3, 1));
+        events.add(new ScheduleEvent(new Date(), "Algomaniac", "G-101", 1, ScheduleEvent.SCHEDULE_EVENT_COMPETITION, false));
+        events.add(new ScheduleEvent(new Date(), "Panel discussion", "Auditorium", 2, ScheduleEvent.SCHEDULE_EVENT_TALK, true));
         //TODO: Get scheduled events and store them in ArrayList
 
         ScheduleAdapter adapter = new ScheduleAdapter(events);
@@ -128,6 +97,7 @@ public class ScheduleFragment extends Fragment {
         mDayOneCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO: Set target scroll position for day 1
                 smoothScroller.setTargetPosition(0);
                 manager.startSmoothScroll(smoothScroller);
             }
@@ -136,6 +106,7 @@ public class ScheduleFragment extends Fragment {
         mDayTwoCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO: Set target scroll position for day 2
                 smoothScroller.setTargetPosition(6);
                 manager.startSmoothScroll(smoothScroller);
             }
@@ -144,6 +115,7 @@ public class ScheduleFragment extends Fragment {
         mDayThrreeCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO: Set target scroll position for day 3
                 smoothScroller.setTargetPosition(19);
                 manager.startSmoothScroll(smoothScroller);
             }
