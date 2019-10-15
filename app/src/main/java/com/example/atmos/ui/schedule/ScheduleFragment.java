@@ -54,8 +54,9 @@ public class ScheduleFragment extends Fragment {
         mDayThrreeCardView = root.findViewById(R.id.day_three_header_card_view);
 
         events = new ArrayList<>();
-        events.add(new ScheduleEvent(new Date(), "Algomaniac", "G-101", 1, ScheduleEvent.SCHEDULE_EVENT_COMPETITION, false));
-        events.add(new ScheduleEvent(new Date(), "Panel discussion", "Auditorium", 2, ScheduleEvent.SCHEDULE_EVENT_TALK, true));
+        events.add(new ScheduleEvent(new Date(), "Algomaniac", "G-101", 1, ScheduleEvent.SCHEDULE_EVENT_COMPETITION, true));
+        events.add(new ScheduleEvent(new Date(), "Competitive coding workshop", "F-204", 1, ScheduleEvent.SCHEDULE_EVENT_WORKSHOP, true));
+        events.add(new ScheduleEvent(new Date(), "Panel discussion", "Auditorium", 2, ScheduleEvent.SCHEDULE_EVENT_TALK, false));
         //TODO: Get scheduled events and store them in ArrayList
 
         ScheduleAdapter adapter = new ScheduleAdapter(events);
