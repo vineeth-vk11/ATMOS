@@ -1,20 +1,25 @@
 package com.example.atmos.ui.schedule;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.atmos.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
 
@@ -106,16 +111,33 @@ class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
         bookmarkedImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: Add code to update boolean and save data into database
+                //TODO: Add code to update boolean of event, update data into database, and notify recycler view of changes
                 if(event.isBookmarked()) {
                     bookmarkedImageView.setImageResource(R.drawable.bookmark_outline);
                 }
                 else {
+                    displayBookmarkConfirmationDialog();
                     bookmarkedImageView.setImageResource(R.drawable.bookmark_filled);
                 }
             }
         });
 
+    }
+
+    private void displayBookmarkConfirmationDialog() {
+        LayoutInflater layoutInflater = LayoutInflater.from(mContext);
+        View promptView = layoutInflater.inflate(R.layout.bookmark_confirmation_dialog, null);
+        final AlertDialog alertD = new AlertDialog.Builder(mContext).create();
+
+        alertD.setView(promptView);
+        alertD.show();
+
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                alertD.dismiss();
+            }
+        }, 2000);
     }
 
     @Override

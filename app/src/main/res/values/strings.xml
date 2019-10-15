@@ -19,6 +19,9 @@
     <string name="upcoming_events">Upcoming events</string>
     <string name="announcements">Announcements</string>
 
+    <string name="organizing_body">Organizing Body</string>
+    <string name="tech_senate">Tech Senate</string>
+
     <string name="day_one">Day 1</string>
     <string name="day_two">Day 2</string>
     <string name="day_three">Day 3</string>
@@ -26,6 +29,12 @@
     <string name="competition">Competition</string>
     <string name="workshop">Workshop</string>
     <string name="talk">Talk</string>
+
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="bookmark">Bookmark</string>
+    <string name="bookmark_notification_warning">You\'ll receive a notification 15 minutes before the event starts.</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
