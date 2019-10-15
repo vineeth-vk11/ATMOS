@@ -4,9 +4,10 @@
     <color name="colorPrimaryDark">#FFF5E1</color>
     <color name="colorAccent">#4B2727</color>
     <color name="background">#FFF5E1</color>
-    <color name="backgroundDark">#F4E7D4</color>
+    <color name="backgroundDark">#124B2727</color>
     <color name="secondary">#4B2727</color>
     <color name="textColor">#000000</color>
     <color name="textSecondary">#4B2727</color>
+    <color name="textTertiary">#944B2727</color>
     <color name="drawerArrowColor">#000000</color>
 </resources>

@@ -1,6 +1,7 @@
 package com.example.atmos.ui.schedule;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
         public TextView locationTextView;
         public ImageView tagImageView;
         public TextView tagTextView;
+        public ImageView bookmarkedImageView;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -34,6 +36,7 @@ class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
             locationTextView = itemView.findViewById(R.id.schedule_event_location_text_view);
             tagImageView = itemView.findViewById(R.id.schedule_event_tag_image_view);
             tagTextView = itemView.findViewById(R.id.schedule_event_tag_text_view);
+            bookmarkedImageView = itemView.findViewById(R.id.event_bookmark_image_view);
         }
 
     }
@@ -44,11 +47,13 @@ class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
         mEvents = events;
     }
 
+    private Context mContext;
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
+        mContext = parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(mContext);
 
         View contactView = inflater.inflate(R.layout.list_item_schedule, parent, false);
 
@@ -58,7 +63,7 @@ class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ScheduleEvent event = mEvents.get(position);
+        final ScheduleEvent event = mEvents.get(position);
 
         TextView timePrimaryTextView = holder.timePrimaryTextView;
         TextView timeSecondaryTextView = holder.timeSecondaryTextView;
@@ -66,6 +71,7 @@ class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
         TextView locationTextView = holder.locationTextView;
         ImageView tagImageView = holder.tagImageView;
         TextView tagTextView = holder.tagTextView;
+        final ImageView bookmarkedImageView = holder.bookmarkedImageView;
 
         String hours = "hh:mm";
         String aOp = "a";
@@ -77,8 +83,39 @@ class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
         timeSecondaryTextView.setText(sdfAoP.format(event.getTime()));
         nameTextView.setText(event.getName());
         locationTextView.setText(event.getLocation());
+
         //TODO: Code proper recognition for tags
-        tagTextView.setText("unavailable");
+        if(event.isBookmarked()) {
+            bookmarkedImageView.setImageResource(R.drawable.bookmark_filled);
+        }
+
+        //TODO: Set respective image sources
+        if(event.getTag() == ScheduleEvent.SCHEDULE_EVENT_COMPETITION) {
+            tagTextView.setText(mContext.getString(R.string.competition));
+            tagImageView.setColorFilter(Color.RED);
+        }
+        else if(event.getTag() == ScheduleEvent.SCHEDULE_EVENT_WORKSHOP) {
+            tagTextView.setText(mContext.getString(R.string.workshop));
+            tagImageView.setColorFilter(Color.GREEN);
+        }
+        else {
+            tagTextView.setText(mContext.getString(R.string.talk));
+            tagImageView.setColorFilter(Color.YELLOW);
+        }
+
+        bookmarkedImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO: Add code to update boolean and save data into database
+                if(event.isBookmarked()) {
+                    bookmarkedImageView.setImageResource(R.drawable.bookmark_outline);
+                }
+                else {
+                    bookmarkedImageView.setImageResource(R.drawable.bookmark_filled);
+                }
+            }
+        });
+
     }
 
     @Override

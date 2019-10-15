@@ -28,10 +28,12 @@ public class HomeFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
         ArrayList<Event> upcomingEvents = new ArrayList<>();
+        upcomingEvents.add(new Event("Random event", "Oct 18, 2019"));
         //TODO: Get announcements from API call and store them in this array
 
 
         ArrayList<Event> announcements = new ArrayList<>();
+        announcements.add(new Event("Random announcement", "October 15, 2019"));
         //TODO: Get announcements from API call and store them in this array
 
 

@@ -40,7 +40,8 @@
                     android:id="@+id/schedule_event_time_primary_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="24sp"
+                    android:textColor="@color/textTertiary"
+                    android:textSize="30sp"
                     tools:text="10:00" />
 
                 <TextView
@@ -48,8 +49,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:textSize="24sp"
+                    android:textColor="@color/textTertiary"
 
+                    android:textSize="30sp"
                     tools:text="AM" />
 
             </LinearLayout>
@@ -61,7 +63,7 @@
                 android:layout_marginEnd="8dp"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/event_bookmark_image_view"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/linearLayout2"
                 app:layout_constraintTop_toTopOf="parent">
@@ -70,7 +72,9 @@
                     android:id="@+id/schedule_event_name_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/rajdhani"
                     android:textAllCaps="true"
+                    android:textColor="@color/textColor"
                     android:textSize="20sp"
                     tools:text="Algomaniac" />
 
@@ -78,6 +82,7 @@
                     android:id="@+id/schedule_event_location_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/textSecondary"
                     android:textSize="17sp"
                     tools:text="G-101" />
 
@@ -87,16 +92,17 @@
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/schedule_event_tag_image_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="6dp"
+                        android:layout_height="6dp"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="8dp"
+                        android:layout_marginEnd="5dp"
                         android:src="@drawable/circle" />
 
                     <TextView
                         android:id="@+id/schedule_event_tag_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:textColor="@color/textSecondary"
                         android:textSize="15sp"
                         tools:text="Competition" />
 
@@ -104,6 +110,15 @@
 
 
             </LinearLayout>
+
+            <ImageView
+                android:id="@+id/event_bookmark_image_view"
+                android:layout_width="25.67dp"
+                android:layout_height="33dp"
+                android:layout_marginEnd="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/bookmark_outline" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
