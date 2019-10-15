@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -41,7 +40,7 @@ public class ContactUsAdapter extends RecyclerView.Adapter<ContactUsAdapter.View
     @Override
     public ContactUsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.contactusrecyclerlayout,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_contact_us,parent,false);
         return new ViewHolder(v);
     }
 

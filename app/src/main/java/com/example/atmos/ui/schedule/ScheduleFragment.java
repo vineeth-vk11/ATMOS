@@ -72,7 +72,6 @@ public class ScheduleFragment extends Fragment {
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 int position = manager.findFirstVisibleItemPosition();
-                Log.d("First visible item pos", Integer.toString(position));
                 int day = events.get(position).getDay();
                 switch(day) {
                     case 2:
