@@ -11,11 +11,14 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.atmos.R;
 
 public class CampusMapFragment extends Fragment {
 
+    private RecyclerView rv_map;
     private CampusMapViewModel campusMapViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -23,13 +26,12 @@ public class CampusMapFragment extends Fragment {
         campusMapViewModel =
                 ViewModelProviders.of(this).get(CampusMapViewModel.class);
         View root = inflater.inflate(R.layout.fragment_campus_map, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        campusMapViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+
+        rv_map = root.findViewById(R.id.rvCampusMap);
+        rv_map.setLayoutManager(new LinearLayoutManager(getActivity()));
+        MapAdapter adapter = new MapAdapter(getActivity());
+        rv_map.setAdapter(adapter);
+
         return root;
     }
 }
