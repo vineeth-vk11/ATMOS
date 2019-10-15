@@ -23,13 +23,7 @@ public class ReachUsFragment extends Fragment {
         reachUsViewModel =
                 ViewModelProviders.of(this).get(ReachUsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_reach_us, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
-        reachUsViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+
         return root;
     }
 }
