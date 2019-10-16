@@ -266,9 +266,7 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
             if (results.size() == 0) {
                 Toast.makeText(context, "No Internet", Toast.LENGTH_SHORT).show();
             } else {
-                if (!isnetwork) {
 
-                }
                 for (int i = 0; i < results.size(); i++) {
                     if (results.get(i).getRoute() == null || results.get(i).getRoute().equals("")) {
                         Log.e(TAG, "No Route found");
