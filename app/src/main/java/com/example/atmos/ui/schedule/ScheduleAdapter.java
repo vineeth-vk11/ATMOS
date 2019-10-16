@@ -1,25 +1,24 @@
 package com.example.atmos.ui.schedule;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.atmos.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
+
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
 
@@ -84,60 +83,46 @@ class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
         SimpleDateFormat sdfHours = new SimpleDateFormat(hours);
         SimpleDateFormat sdfAoP = new SimpleDateFormat(aOp);
 
-        timePrimaryTextView.setText(sdfHours.format(event.getTime()));
-        timeSecondaryTextView.setText(sdfAoP.format(event.getTime()));
+        timePrimaryTextView.setText((event.getStartTime()));
+        //timeSecondaryTextView.setText(sdfAoP.format(event.getTime()));
+        timeSecondaryTextView.setText("A.M");
         nameTextView.setText(event.getName());
-        locationTextView.setText(event.getLocation());
+        locationTextView.setText(event.getVenue());
 
         //TODO: Code proper recognition for tags
-        if(event.isBookmarked()) {
-            bookmarkedImageView.setImageResource(R.drawable.bookmark_filled);
-        }
+//        if(event.isBookmarked()) {
+//            bookmarkedImageView.setImageResource(R.drawable.bookmark_filled);
+//        }
 
         //TODO: Set respective image sources
-        if(event.getTag() == ScheduleEvent.SCHEDULE_EVENT_COMPETITION) {
-            tagTextView.setText(mContext.getString(R.string.competition));
+        Log.d("Type",event.getType());
+        if(event.getType().equals("Competition"))
+        {
+            tagTextView.setText("Competition");
             tagImageView.setColorFilter(Color.RED);
         }
-        else if(event.getTag() == ScheduleEvent.SCHEDULE_EVENT_WORKSHOP) {
-            tagTextView.setText(mContext.getString(R.string.workshop));
+        else if(event.getType().equals("Workshop")) {
+            tagTextView.setText("Workshop");
             tagImageView.setColorFilter(Color.GREEN);
         }
         else {
-            tagTextView.setText(mContext.getString(R.string.talk));
+            tagTextView.setText(mContext.getString(R.string.Talk));
             tagImageView.setColorFilter(Color.YELLOW);
         }
 
-        bookmarkedImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO: Add code to update boolean of event, update data into database, and notify recycler view of changes
-                if(event.isBookmarked()) {
-                    bookmarkedImageView.setImageResource(R.drawable.bookmark_outline);
-                }
-                else {
-                    displayBookmarkConfirmationDialog();
-                    bookmarkedImageView.setImageResource(R.drawable.bookmark_filled);
-                }
-            }
-        });
+//        bookmarkedImageView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //TODO: Add code to update boolean and save data into database
+//                if(event.isBookmarked()) {
+//                    bookmarkedImageView.setImageResource(R.drawable.bookmark_outline);
+//                }
+//                else {
+//                    bookmarkedImageView.setImageResource(R.drawable.bookmark_filled);
+//                }
+//            }
+//        });
 
-    }
-
-    private void displayBookmarkConfirmationDialog() {
-        LayoutInflater layoutInflater = LayoutInflater.from(mContext);
-        View promptView = layoutInflater.inflate(R.layout.bookmark_confirmation_dialog, null);
-        final AlertDialog alertD = new AlertDialog.Builder(mContext).create();
-
-        alertD.setView(promptView);
-        alertD.show();
-
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                alertD.dismiss();
-            }
-        }, 2000);
     }
 
     @Override
