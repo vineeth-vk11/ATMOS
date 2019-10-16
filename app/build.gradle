@@ -40,4 +40,5 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.0.0"
     implementation 'de.hdodenhof:circleimageview:3.0.1'
     implementation 'com.github.wangjiegulu:rfab:2.0.0'
+    implementation 'com.makeramen:roundedimageview:2.3.0'
 }

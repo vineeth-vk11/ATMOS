@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment {
 
     private RecyclerView mAnnouncementRecycler;
-    private LinearLayout mNoAnnouncementTextView;
+    private TextView mNoAnnouncementTextView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
