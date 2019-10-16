@@ -10,4 +10,9 @@
     <color name="textSecondary">#4B2727</color>
     <color name="textTertiary">#944B2727</color>
     <color name="drawerArrowColor">#000000</color>
+
+    <color name="colorCompetition">#FF0000</color>
+    <color name="colorWorkshop">#00FF00</color>
+    <color name="colorTalk">#FFFF00</color>
+
 </resources>

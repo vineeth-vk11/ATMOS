@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/schedule_filter_kayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -144,3 +149,19 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton
+        xmlns:rfab="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/schedule_filter_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        rfab:rfab_size="normal"
+        rfab:rfab_drawable="@drawable/filter"
+        rfab:rfab_color_normal="@color/secondary"
+        rfab:rfab_color_pressed="@color/secondary"/>
+
+</com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout>
