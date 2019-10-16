@@ -45,7 +45,7 @@ import retrofit2.Response;
 
 import static android.content.ContentValues.TAG;
 
-public class ScheduleFragment extends Fragment implements RapidFloatingActionContentLabelList.OnRapidFloatingActionContentLabelListListener{
+public class ScheduleFragment extends Fragment implements RapidFloatingActionContentLabelList.OnRapidFloatingActionContentLabelListListener {
 
     private ScheduleViewModel scheduleViewModel;
     private Realm realm;
@@ -66,6 +66,9 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
     private RapidFloatingActionButton filterFab;
     private RapidFloatingActionHelper filterFabHelpler;
 
+    private ScheduleAdapter mAdapter;
+
+    private boolean filterSet;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -73,6 +76,8 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
         scheduleViewModel =
                 ViewModelProviders.of(this).get(ScheduleViewModel.class);
         View root = inflater.inflate(R.layout.fragment_schedule, container, false);
+
+        filterSet = false;
 
         recyclerView = root.findViewById(R.id.schedule_recycler_view);
         mDayOneTextView = root.findViewById(R.id.header_day_one_text_view);
@@ -91,7 +96,7 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
         Realm.init(context);
         realm = Realm.getDefaultInstance();
         getDatafromRealm(realm);
-        Log.d("Calling Api:","callApi()");
+        Log.d("Calling Api:", "callApi()");
         callApi();
         progressBar.setVisibility(View.VISIBLE);
         //TODO: Get scheduled events and store them in ArrayList
@@ -100,10 +105,10 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
         return root;
     }
 
-    public static final int FILTER_COMPETITION = 0;
-    public static final int FILTER_WORKSHOP = 1;
-    public static final int FILTER_TALK = 2;
-    public static final int NO_FILTER = 3;
+    private final int FILTER_COMPETITION = 0;
+    private final int FILTER_WORKSHOP = 1;
+    private final int FILTER_TALK = 2;
+    private final int NO_FILTER = 3;
 
     private void displayFabOptions() {
         RapidFloatingActionContentLabelList fabContent = new RapidFloatingActionContentLabelList(context);
@@ -121,34 +126,62 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
                 .setLabel(getString(R.string.Talk))
                 .setWrapper(FILTER_TALK)
         );
+        options.add(new RFACLabelItem<Integer>()
+                .setLabel(getString(R.string.none))
+                .setWrapper(NO_FILTER)
+        );
+
         fabContent.setItems(options);
         filterFabHelpler = new RapidFloatingActionHelper(context, rfaLayout, filterFab, fabContent).build();
     }
 
     @Override
     public void onRFACItemLabelClick(int position, RFACLabelItem item) {
-        switch(position) {
+        switch (position) {
             case FILTER_COMPETITION:
+                filterSet = true;
                 filterRecyclerView(FILTER_COMPETITION);
+                mAdapter.notifyDataSetChanged();
                 filterFabHelpler.toggleContent();
                 break;
             case FILTER_WORKSHOP:
-                //TODO
+                filterSet = true;
+                filterRecyclerView(FILTER_WORKSHOP);
+                mAdapter.notifyDataSetChanged();
                 filterFabHelpler.toggleContent();
                 break;
             case FILTER_TALK:
-                //TODO
+                filterSet = true;
+                filterRecyclerView(FILTER_TALK);
+                mAdapter.notifyDataSetChanged();
+                filterFabHelpler.toggleContent();
+                break;
+            case NO_FILTER:
+            default:
+                filterSet = false;
+                filterRecyclerView(NO_FILTER);
+                mAdapter.notifyDataSetChanged();
                 filterFabHelpler.toggleContent();
         }
     }
 
     private void filterRecyclerView(int filterBy) {
-
+        String filterTag;
+        if (filterBy == FILTER_COMPETITION)
+            filterTag = "competition";
+        else if (filterBy == FILTER_WORKSHOP)
+            filterTag = "workshop";
+        else if (filterBy == FILTER_TALK)
+            filterTag = "talk";
+        else
+            filterTag = "none";
+        setAdapter(filterDetailList(eventDetailsList, filterTag));
     }
+
 
     @Override
     public void onRFACItemIconClick(int position, RFACLabelItem item) {
-        //do nothing
+        //do nothing since icons have been disabled
     }
 
 
@@ -188,13 +221,13 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
         call.enqueue(new Callback<ArrayList<ScheduleEvent>>() {
             @Override
             public void onResponse(Call<ArrayList<ScheduleEvent>> call, Response<ArrayList<ScheduleEvent>> response) {
-               eventDetailsList = response.body();
+                eventDetailsList = response.body();
                 System.out.println("Api Response:\n");
-              // System.out.println(response.body());
-               Log.d("Success Response",String.valueOf(response.body()));
+                // System.out.println(response.body());
+                Log.d("Success Response", String.valueOf(response.body()));
                 try {
                     for (int i = 0; i < eventDetailsList.size(); i++) {
-                       // Log.d("Api response",eventDetailsList.get(i));
+                        // Log.d("Api response",eventDetailsList.get(i));
                         //System.out.println(eventDetailsList.get(i));
                         addDatatoRealm(eventDetailsList.get(i));
                     }
@@ -248,6 +281,7 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
         }
         realm.commitTransaction();
     }
+
     private void getDatafromRealm(Realm realm1) {
         if (realm1 != null) {
             realmList = new ArrayList<>();
@@ -267,6 +301,7 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
                     } else {
                         realmList.add(results.get(i));
                         Log.e(TAG, results.get(i).getRoute());
+                        Log.e("Type: ", results.get(i).getType());
                     }
                 }
 
@@ -278,28 +313,36 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
         }
     }
 
-//    private void filterDetailList(ArrayList<ScheduleEvent> eventDetailsList, int filterBy) {
-//        ArrayList<ScheduleEvent> filteredDetailList = new ArrayList<>();
-//        for(ScheduleEvent event: eventDetailsList) {
-//
-//        }
-//    }
+    private ArrayList<ScheduleEvent> filterDetailList(ArrayList<ScheduleEvent> eventDetailsList, String filterBy) {
+        if (filterBy.equalsIgnoreCase("none"))
+            return eventDetailsList;
+        else {
+            ArrayList<ScheduleEvent> filteredDetailList = new ArrayList<>();
+            for (ScheduleEvent event : eventDetailsList) {
+                String eventType = event.getType();
+                if (eventType.equalsIgnoreCase(filterBy)) {
+                    filteredDetailList.add(event);
+                }
+            }
+            return filteredDetailList;
+        }
+    }
 
-    private void setAdapter(final ArrayList<ScheduleEvent> eventDetailsList)
-    {
-        ScheduleAdapter adapter = new ScheduleAdapter(eventDetailsList);
-        recyclerView.setAdapter(adapter);
+    private void setAdapter(final ArrayList<ScheduleEvent> eventDetailsList) {
+        mAdapter = new ScheduleAdapter(eventDetailsList);
+        recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         setDayOne();
 
-        final LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager() ;
+        final LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 int position = manager.findFirstVisibleItemPosition();
+                Log.e("Position is", Integer.toString(position));
 //                String day = eventDetailsList.get(position).getDate();
 //                switch(day) {
 //                    case 2:
@@ -317,7 +360,8 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
         });
 
         final RecyclerView.SmoothScroller smoothScroller = new LinearSmoothScroller(getContext()) {
-            @Override protected int getVerticalSnapPreference() {
+            @Override
+            protected int getVerticalSnapPreference() {
                 return LinearSmoothScroller.SNAP_TO_START;
             }
         };
@@ -350,6 +394,7 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
             }
         });
     }
+
     public String[] getEventTime(String time) {
 
         // The format of the startTime string is yyyy-MM-dd-HH-mm
