@@ -107,7 +107,7 @@ public class HomeFragment extends Fragment {
                 reverse(descArray);
                 reverse(deptArray);
 
-                Log.e("FEED FRAGMENT", Integer.toString(deptArray.size()));
+                Log.e("FEED FRAGMENT !", Integer.toString(deptArray.size()));
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 mAnnouncementAdapter = new AnnouncementAdapter(getActivity(), timeArray, deptArray, descArray, i);
                 //mFeedAdapter.notifyDataSetChanged();
