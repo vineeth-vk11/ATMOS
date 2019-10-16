@@ -41,7 +41,7 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementAdapte
     @Override
     public AnnouncementAdapter.FeedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.fragment_home, parent, false);
+        View view = inflater.inflate(R.layout.list_item_announcements, parent, false);
         return new AnnouncementAdapter.FeedViewHolder(view);
     }
 
