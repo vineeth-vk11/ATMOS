@@ -31,6 +31,8 @@
     <string name="Talk">Talk</string>
     <string name="none">Remove filter</string>
 
+    <string name="no_announcements">There are no announcements currently</string>
+
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
 
