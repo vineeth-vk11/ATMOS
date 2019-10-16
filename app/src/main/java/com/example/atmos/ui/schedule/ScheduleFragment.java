@@ -1,6 +1,7 @@
 package com.example.atmos.ui.schedule;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -25,9 +26,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.atmos.R;
 import com.example.atmos.api.ApiClient;
 import com.example.atmos.api.EventsInterface;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton;
+import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionHelper;
+import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout;
+import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem;
+import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloatingActionContentLabelList;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -37,7 +45,7 @@ import retrofit2.Response;
 
 import static android.content.ContentValues.TAG;
 
-public class ScheduleFragment extends Fragment {
+public class ScheduleFragment extends Fragment implements RapidFloatingActionContentLabelList.OnRapidFloatingActionContentLabelListListener {
 
     private ScheduleViewModel scheduleViewModel;
     private Realm realm;
@@ -53,12 +61,23 @@ public class ScheduleFragment extends Fragment {
     private Context context;
     private boolean isnetwork = false;
     private RecyclerView recyclerView;
+
+    private RapidFloatingActionLayout rfaLayout;
+    private RapidFloatingActionButton filterFab;
+    private RapidFloatingActionHelper filterFabHelpler;
+
+    private ScheduleAdapter mAdapter;
+
+    private boolean filterSet;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         context = getContext();
         scheduleViewModel =
                 ViewModelProviders.of(this).get(ScheduleViewModel.class);
         View root = inflater.inflate(R.layout.fragment_schedule, container, false);
+
+        filterSet = false;
 
         recyclerView = root.findViewById(R.id.schedule_recycler_view);
         mDayOneTextView = root.findViewById(R.id.header_day_one_text_view);
@@ -70,20 +89,101 @@ public class ScheduleFragment extends Fragment {
         mDayTwoCardView = root.findViewById(R.id.day_two_header_card_view);
         mDayThrreeCardView = root.findViewById(R.id.day_three_header_card_view);
 
+        rfaLayout = root.findViewById(R.id.schedule_filter_kayout);
+        filterFab = root.findViewById(R.id.schedule_filter_fab);
+        displayFabOptions();
+
         Realm.init(context);
         realm = Realm.getDefaultInstance();
         getDatafromRealm(realm);
-        Log.d("Calling Api:","callApi()");
+        Log.d("Calling Api:", "callApi()");
         callApi();
         progressBar.setVisibility(View.VISIBLE);
-//        events = new ArrayList<>();
-//        events.add(new ScheduleEvent(new Date(), "Algomaniac", "G-101", 1, ScheduleEvent.SCHEDULE_EVENT_COMPETITION, false));
-//        events.add(new ScheduleEvent(new Date(), "Panel discussion", "Auditorium", 2, ScheduleEvent.SCHEDULE_EVENT_TALK, true));
         //TODO: Get scheduled events and store them in ArrayList
 
 
         return root;
     }
+
+    private final int FILTER_COMPETITION = 0;
+    private final int FILTER_WORKSHOP = 1;
+    private final int FILTER_TALK = 2;
+    private final int NO_FILTER = 3;
+
+    private void displayFabOptions() {
+        RapidFloatingActionContentLabelList fabContent = new RapidFloatingActionContentLabelList(context);
+        fabContent.setOnRapidFloatingActionContentLabelListListener(this);
+        List<RFACLabelItem> options = new ArrayList<>();
+        options.add(new RFACLabelItem<Integer>()
+                .setLabel(getString(R.string.Competition))
+                .setWrapper(FILTER_COMPETITION)
+        );
+        options.add(new RFACLabelItem<Integer>()
+                .setLabel(getString(R.string.Workshop))
+                .setWrapper(FILTER_WORKSHOP)
+        );
+        options.add(new RFACLabelItem<Integer>()
+                .setLabel(getString(R.string.Talk))
+                .setWrapper(FILTER_TALK)
+        );
+        options.add(new RFACLabelItem<Integer>()
+                .setLabel(getString(R.string.none))
+                .setWrapper(NO_FILTER)
+        );
+
+        fabContent.setItems(options);
+        filterFabHelpler = new RapidFloatingActionHelper(context, rfaLayout, filterFab, fabContent).build();
+    }
+
+    @Override
+    public void onRFACItemLabelClick(int position, RFACLabelItem item) {
+        switch (position) {
+            case FILTER_COMPETITION:
+                filterSet = true;
+                filterRecyclerView(FILTER_COMPETITION);
+                mAdapter.notifyDataSetChanged();
+                filterFabHelpler.toggleContent();
+                break;
+            case FILTER_WORKSHOP:
+                filterSet = true;
+                filterRecyclerView(FILTER_WORKSHOP);
+                mAdapter.notifyDataSetChanged();
+                filterFabHelpler.toggleContent();
+                break;
+            case FILTER_TALK:
+                filterSet = true;
+                filterRecyclerView(FILTER_TALK);
+                mAdapter.notifyDataSetChanged();
+                filterFabHelpler.toggleContent();
+                break;
+            case NO_FILTER:
+            default:
+                filterSet = false;
+                filterRecyclerView(NO_FILTER);
+                mAdapter.notifyDataSetChanged();
+                filterFabHelpler.toggleContent();
+        }
+    }
+
+    private void filterRecyclerView(int filterBy) {
+        String filterTag;
+        if (filterBy == FILTER_COMPETITION)
+            filterTag = "competition";
+        else if (filterBy == FILTER_WORKSHOP)
+            filterTag = "workshop";
+        else if (filterBy == FILTER_TALK)
+            filterTag = "talk";
+        else
+            filterTag = "none";
+        setAdapter(filterDetailList(eventDetailsList, filterTag));
+    }
+
+
+    @Override
+    public void onRFACItemIconClick(int position, RFACLabelItem item) {
+        //do nothing since icons have been disabled
+    }
+
 
     private void setDayOne() {
         mDayOneTextView.setTextColor(getContext().getColor(R.color.colorPrimary));
@@ -121,19 +221,19 @@ public class ScheduleFragment extends Fragment {
         call.enqueue(new Callback<ArrayList<ScheduleEvent>>() {
             @Override
             public void onResponse(Call<ArrayList<ScheduleEvent>> call, Response<ArrayList<ScheduleEvent>> response) {
-               eventDetailsList = response.body();
+                eventDetailsList = response.body();
                 System.out.println("Api Response:\n");
-              // System.out.println(response.body());
-               Log.d("Success Response",String.valueOf(response.body()));
+                // System.out.println(response.body());
+                Log.d("Success Response", String.valueOf(response.body()));
                 try {
                     for (int i = 0; i < eventDetailsList.size(); i++) {
-                       // Log.d("Api response",eventDetailsList.get(i));
+                        // Log.d("Api response",eventDetailsList.get(i));
                         //System.out.println(eventDetailsList.get(i));
                         addDatatoRealm(eventDetailsList.get(i));
                     }
                     isnetwork = true;
                 } catch (Exception e) {
-                    Toast.makeText(context, "Network Problem", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "There was a problem fetching the data. Try again later", Toast.LENGTH_SHORT).show();
                 }
                 getDatafromRealm(realm);
                 //swipeRefreshLayout.setRefreshing(false);
@@ -181,6 +281,7 @@ public class ScheduleFragment extends Fragment {
         }
         realm.commitTransaction();
     }
+
     private void getDatafromRealm(Realm realm1) {
         if (realm1 != null) {
             realmList = new ArrayList<>();
@@ -200,6 +301,7 @@ public class ScheduleFragment extends Fragment {
                     } else {
                         realmList.add(results.get(i));
                         Log.e(TAG, results.get(i).getRoute());
+                        Log.e("Type: ", results.get(i).getType());
                     }
                 }
 
@@ -210,23 +312,37 @@ public class ScheduleFragment extends Fragment {
             Log.e(TAG, "realm is null");
         }
     }
-    private  void setAdapter(final ArrayList<ScheduleEvent> eventDetailsList)
-    {
 
-        ScheduleAdapter adapter = new ScheduleAdapter(eventDetailsList);
-        recyclerView.setAdapter(adapter);
+    private ArrayList<ScheduleEvent> filterDetailList(ArrayList<ScheduleEvent> eventDetailsList, String filterBy) {
+        if (filterBy.equalsIgnoreCase("none"))
+            return eventDetailsList;
+        else {
+            ArrayList<ScheduleEvent> filteredDetailList = new ArrayList<>();
+            for (ScheduleEvent event : eventDetailsList) {
+                String eventType = event.getType();
+                if (eventType.equalsIgnoreCase(filterBy)) {
+                    filteredDetailList.add(event);
+                }
+            }
+            return filteredDetailList;
+        }
+    }
+
+    private void setAdapter(final ArrayList<ScheduleEvent> eventDetailsList) {
+        mAdapter = new ScheduleAdapter(eventDetailsList);
+        recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         setDayOne();
 
-        final LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager() ;
+        final LinearLayoutManager manager = (LinearLayoutManager) recyclerView.getLayoutManager();
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 int position = manager.findFirstVisibleItemPosition();
-                Log.d("First visible item pos", Integer.toString(position));
+                Log.e("Position is", Integer.toString(position));
 //                String day = eventDetailsList.get(position).getDate();
 //                switch(day) {
 //                    case 2:
@@ -244,7 +360,8 @@ public class ScheduleFragment extends Fragment {
         });
 
         final RecyclerView.SmoothScroller smoothScroller = new LinearSmoothScroller(getContext()) {
-            @Override protected int getVerticalSnapPreference() {
+            @Override
+            protected int getVerticalSnapPreference() {
                 return LinearSmoothScroller.SNAP_TO_START;
             }
         };
@@ -277,6 +394,7 @@ public class ScheduleFragment extends Fragment {
             }
         });
     }
+
     public String[] getEventTime(String time) {
 
         // The format of the startTime string is yyyy-MM-dd-HH-mm

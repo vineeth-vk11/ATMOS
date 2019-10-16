@@ -29,6 +29,7 @@
     <string name="Competition">Competition</string>
     <string name="Workshop">Workshop</string>
     <string name="Talk">Talk</string>
+    <string name="none">Remove filter</string>
 
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
