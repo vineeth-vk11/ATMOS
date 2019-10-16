@@ -26,9 +26,9 @@
     <string name="day_two">Day 2</string>
     <string name="day_three">Day 3</string>
 
-    <string name="competition">Competition</string>
-    <string name="workshop">Workshop</string>
-    <string name="talk">Talk</string>
+    <string name="Competition">Competition</string>
+    <string name="Workshop">Workshop</string>
+    <string name="Talk">Talk</string>
 
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
