@@ -96,6 +96,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/textSecondary"
                     android:textSize="17sp"
+                    android:textAllCaps="true"
                     tools:text="G-101" />
 
                 <LinearLayout

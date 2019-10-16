@@ -2,6 +2,11 @@ package com.example.atmos.ui.schedule;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.Date;
+
 import io.realm.RealmObject;
 
 public class ScheduleEvent extends RealmObject {
@@ -34,7 +39,9 @@ public class ScheduleEvent extends RealmObject {
     @SerializedName("route")
     String route;
 
+
     String date;
+
 
     public void setName(String name) {
         this.name = name;

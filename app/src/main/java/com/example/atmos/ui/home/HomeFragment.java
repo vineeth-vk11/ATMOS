@@ -27,7 +27,7 @@ public class HomeFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
         mAnnouncementRecycler = rootView.findViewById(R.id.announcements_recycler_view);
-        mNoAnnouncementTextView = rootView.findViewById(R.id.announcements_empty_view);
+        mNoAnnouncementTextView = rootView.findViewById(R.id.announcements_empty_view   );
 
         ArrayList<Announcement> announcements = new ArrayList<>();
         //TODO: Get announcements from API call and store them in this array

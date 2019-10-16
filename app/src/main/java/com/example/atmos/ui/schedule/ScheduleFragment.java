@@ -1,53 +1,39 @@
 package com.example.atmos.ui.schedule;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.atmos.R;
 import com.example.atmos.api.ApiClient;
 import com.example.atmos.api.EventsInterface;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton;
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionHelper;
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout;
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem;
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloatingActionContentLabelList;
-
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
 import io.realm.Realm;
 import io.realm.RealmResults;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 import static android.content.ContentValues.TAG;
 
 public class ScheduleFragment extends Fragment implements RapidFloatingActionContentLabelList.OnRapidFloatingActionContentLabelListListener {
 
-    private ScheduleViewModel scheduleViewModel;
     private Realm realm;
     private TextView mDayOneTextView;
     private CardView mDayOneCardView;
@@ -59,7 +45,6 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
     private ArrayList<ScheduleEvent> eventDetailsList;
     private ArrayList<ScheduleEvent> realmList;
     private Context context;
-    private boolean isnetwork = false;
     private RecyclerView recyclerView;
 
     private RapidFloatingActionLayout rfaLayout;
@@ -68,16 +53,11 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
 
     private ScheduleAdapter mAdapter;
 
-    private boolean filterSet;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         context = getContext();
-        scheduleViewModel =
-                ViewModelProviders.of(this).get(ScheduleViewModel.class);
         View root = inflater.inflate(R.layout.fragment_schedule, container, false);
-
-        filterSet = false;
 
         recyclerView = root.findViewById(R.id.schedule_recycler_view);
         mDayOneTextView = root.findViewById(R.id.header_day_one_text_view);
@@ -93,14 +73,12 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
         filterFab = root.findViewById(R.id.schedule_filter_fab);
         displayFabOptions();
 
+        progressBar.setVisibility(View.VISIBLE);
         Realm.init(context);
         realm = Realm.getDefaultInstance();
         getDatafromRealm(realm);
         Log.d("Calling Api:", "callApi()");
         callApi();
-        progressBar.setVisibility(View.VISIBLE);
-        //TODO: Get scheduled events and store them in ArrayList
-
 
         return root;
     }
@@ -139,26 +117,22 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
     public void onRFACItemLabelClick(int position, RFACLabelItem item) {
         switch (position) {
             case FILTER_COMPETITION:
-                filterSet = true;
                 filterRecyclerView(FILTER_COMPETITION);
                 mAdapter.notifyDataSetChanged();
                 filterFabHelpler.toggleContent();
                 break;
             case FILTER_WORKSHOP:
-                filterSet = true;
                 filterRecyclerView(FILTER_WORKSHOP);
                 mAdapter.notifyDataSetChanged();
                 filterFabHelpler.toggleContent();
                 break;
             case FILTER_TALK:
-                filterSet = true;
                 filterRecyclerView(FILTER_TALK);
                 mAdapter.notifyDataSetChanged();
                 filterFabHelpler.toggleContent();
                 break;
             case NO_FILTER:
             default:
-                filterSet = false;
                 filterRecyclerView(NO_FILTER);
                 mAdapter.notifyDataSetChanged();
                 filterFabHelpler.toggleContent();
@@ -231,7 +205,6 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
                         //System.out.println(eventDetailsList.get(i));
                         addDatatoRealm(eventDetailsList.get(i));
                     }
-                    isnetwork = true;
                 } catch (Exception e) {
                     Toast.makeText(context, "There was a problem fetching the data. Try again later", Toast.LENGTH_SHORT).show();
                 }
@@ -256,6 +229,7 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
         ScheduleEvent model = realm.where(ScheduleEvent.class).equalTo("id", details.getId()).findFirst();
         if (model == null) {
             ScheduleEvent event = realm.createObject(ScheduleEvent.class);
+            Log.d("StartTime1",details.getStartTime());
             event.setId(details.getId());
             event.setName(details.getName());
             event.setAbout(details.getAbout());
@@ -264,10 +238,11 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
             event.setPrice(details.getPrice());
             event.setVenue(details.getVenue());
             event.setType(details.getType());
-            event.setStartTime(getEventTime(details.getStartTime())[3] + ":" + getEventTime(details.getStartTime())[4]);
+            event.setStartTime(details.getStartTime());
             event.setEndTime(details.getEndTime());
             event.setRoute(details.getRoute());
         } else {
+            Log.d("StartTime2",details.getStartTime());
             model.setName(details.getName());
             model.setAbout(details.getAbout());
             model.setTagline(details.getTagline());
@@ -275,7 +250,7 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
             model.setPrice(details.getPrice());
             model.setVenue(details.getVenue());
             model.setType(details.getType());
-            model.setStartTime(getEventTime(details.getStartTime())[3] + ":" + getEventTime(details.getStartTime())[4]);
+            model.setStartTime(details.getStartTime());
             model.setEndTime(details.getEndTime());
             model.setRoute(details.getRoute());
         }
@@ -285,16 +260,11 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
     private void getDatafromRealm(Realm realm1) {
         if (realm1 != null) {
             realmList = new ArrayList<>();
-
             RealmResults<ScheduleEvent> results = realm1.where(ScheduleEvent.class).findAll();
-
+            results = results.sort("startTime");
             if (results.size() == 0) {
                 Toast.makeText(context, "No Internet", Toast.LENGTH_SHORT).show();
             } else {
-                if (!isnetwork) {
-
-                }
-
                 for (int i = 0; i < results.size(); i++) {
                     if (results.get(i).getRoute() == null || results.get(i).getRoute().equals("")) {
                         Log.e(TAG, "No Route found");
@@ -328,7 +298,7 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
         }
     }
 
-    private void setAdapter(final ArrayList<ScheduleEvent> eventDetailsList) {
+    private void setAdapter(ArrayList<ScheduleEvent> eventDetailsList) {
         mAdapter = new ScheduleAdapter(eventDetailsList);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -395,32 +365,4 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
             }
         });
     }
-
-    public String[] getEventTime(String time) {
-
-        // The format of the startTime string is yyyy-MM-dd-HH-mm
-        // HH-mm is the time in 24 hour format. Use this after conversion to 12 hour format.
-
-        String pattern = "\\d{4}(-\\d{2}){4}";
-        String[] parts = {"", "", "", "", ""};
-        // testdate corresponds to 10:05 AM (10:05 hours), 11th August 2018
-        String testdate = "2018-08-11-10-05"; // replace with details.getStartTime()
-
-        // validation condition. If false, do not parse the time, and have a default fallback option
-        if (time.matches(pattern)) {
-            // Split the testdate String, to obtain the various parts of the time
-            parts = time.split("-");
-            // wrt to testdate
-            // parts[0] => yyyy => 2018
-            // parts[1] => MM => 08
-            // parts[2] => DD => 11
-            // parts[3] => HH => 10
-            // parts[4] => mm => 5
-            return parts;
-        }
-
-        return parts;
-
-    }
-
 }

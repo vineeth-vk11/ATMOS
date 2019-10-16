@@ -14,8 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.atmos.R;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -67,7 +70,7 @@ class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final ScheduleEvent event = mEvents.get(position);
+        ScheduleEvent event = mEvents.get(position);
 
         TextView timePrimaryTextView = holder.timePrimaryTextView;
         TextView timeSecondaryTextView = holder.timeSecondaryTextView;
@@ -77,15 +80,21 @@ class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
         TextView tagTextView = holder.tagTextView;
         final ImageView bookmarkedImageView = holder.bookmarkedImageView;
 
-        String hours = "hh:mm";
-        String aOp = "a";
+        String time = event.getStartTime();
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm");
+            Date dateObj = sdf.parse(time);
+            timePrimaryTextView.setText(new SimpleDateFormat("hh:mm").format(dateObj));
+            timeSecondaryTextView.setText(new SimpleDateFormat("aa").format(dateObj));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
-        SimpleDateFormat sdfHours = new SimpleDateFormat(hours);
-        SimpleDateFormat sdfAoP = new SimpleDateFormat(aOp);
-
-        timePrimaryTextView.setText((event.getStartTime()));
+        //timePrimaryTextView.setText((event.getStartTime()));
+        Log.d("eventStartTime",event.getStartTime());
         //timeSecondaryTextView.setText(sdfAoP.format(event.getTime()));
-        timeSecondaryTextView.setText("A.M");
+       // timeSecondaryTextView.setText("A.M");
+
         nameTextView.setText(event.getName());
         locationTextView.setText(event.getVenue());
 
