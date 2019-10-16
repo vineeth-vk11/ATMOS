@@ -9,7 +9,7 @@ import java.util.Date;
 
 import io.realm.RealmObject;
 
-public class ScheduleEvent extends RealmObject {
+public class ScheduleEvent extends RealmObject implements Comparable<ScheduleEvent> {
 
     @SerializedName("_id")
     String id;
@@ -161,6 +161,11 @@ public class ScheduleEvent extends RealmObject {
 
     public String getRoute() {
         return route;
+    }
+
+    @Override
+    public int compareTo(ScheduleEvent scheduleEvent) {
+        return this.getStartTime().compareTo(scheduleEvent.getStartTime());
     }
 }
 

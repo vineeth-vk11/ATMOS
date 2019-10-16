@@ -23,7 +23,12 @@ import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionHelper;
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout;
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem;
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloatingActionContentLabelList;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -71,6 +76,11 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
 
         rfaLayout = root.findViewById(R.id.schedule_filter_kayout);
         filterFab = root.findViewById(R.id.schedule_filter_fab);
+
+        noDayOne = 0;
+        noDayTwo = 0;
+        noDayThree = 0;
+
         displayFabOptions();
 
         progressBar.setVisibility(View.VISIBLE);
@@ -223,6 +233,31 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
         });
     }
 
+    private int noDayOne, noDayTwo, noDayThree;
+
+    private void enterDayNoFromDate(String date) {
+        String dayNo = getDay(date);
+        if(dayNo.equals("19"))
+            noDayTwo++;
+        else if(dayNo.equals("20"))
+            noDayThree++;
+        else
+            noDayOne++;
+    }
+
+    private String getDay(String date) {
+        String dayNo;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm");
+            Date dateObj = sdf.parse(date);
+            dayNo = new SimpleDateFormat("dd").format(dateObj);
+            return dayNo;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "18";
+        }
+    }
+
     private void addDatatoRealm(ScheduleEvent details) {
         //System.out.println(details);
         realm.beginTransaction();
@@ -239,6 +274,7 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
             event.setVenue(details.getVenue());
             event.setType(details.getType());
             event.setStartTime(details.getStartTime());
+            enterDayNoFromDate(event.getStartTime());
             event.setEndTime(details.getEndTime());
             event.setRoute(details.getRoute());
         } else {
@@ -251,6 +287,7 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
             model.setVenue(details.getVenue());
             model.setType(details.getType());
             model.setStartTime(details.getStartTime());
+            enterDayNoFromDate(details.getStartTime());
             model.setEndTime(details.getEndTime());
             model.setRoute(details.getRoute());
         }
@@ -266,9 +303,6 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
             if (results.size() == 0) {
                 Toast.makeText(context, "No Internet", Toast.LENGTH_SHORT).show();
             } else {
-                if (!isnetwork) {
-
-                }
                 for (int i = 0; i < results.size(); i++) {
                     if (results.get(i).getRoute() == null || results.get(i).getRoute().equals("")) {
                         Log.e(TAG, "No Route found");
@@ -301,7 +335,8 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
         }
     }
 
-    private void setAdapter(ArrayList<ScheduleEvent> eventDetailsList) {
+    private void setAdapter(final ArrayList<ScheduleEvent> eventDetailsList) {
+        Collections.sort(eventDetailsList);
         mAdapter = new ScheduleAdapter(eventDetailsList);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -314,22 +349,21 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                int position = manager.findFirstVisibleItemPosition();
-                Log.e("Position is", Integer.toString(position));
-                //TODO: When API is ready, update dates
-//                String day = eventDetailsList.get(position).getDate();
-//                switch(day) {
-//                    case 2:
-//                        setDayTwo();
-//                        break;
-//                    case 3:
-//                        setDayThree();
-//                        break;
-//                    case 1:
-//                    default:
-//                        setDayOne();
-//                }
-//                Log.d("Day:\n\n\n",day);
+                int position = manager.findFirstVisibleItemPosition() + 1;
+                Log.d("Position", Integer.toString(position));
+                String day = getDay(eventDetailsList.get(position).getStartTime());
+                Log.d("Day", day);
+                switch(getDay(day)) {
+                    case "19":
+                        setDayTwo();
+                        break;
+                    case "20":
+                        setDayThree();
+                        break;
+                    case "18":
+                    default:
+                        setDayOne();
+                }
             }
         });
 
@@ -354,7 +388,7 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
             @Override
             public void onClick(View view) {
                 //TODO: Set target scroll position for day 2
-                smoothScroller.setTargetPosition(6);
+                smoothScroller.setTargetPosition(24);
                 manager.startSmoothScroll(smoothScroller);
             }
         });
@@ -363,7 +397,7 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
             @Override
             public void onClick(View view) {
                 //TODO: Set target scroll position for day 3
-                smoothScroller.setTargetPosition(19);
+                smoothScroller.setTargetPosition(44);
                 manager.startSmoothScroll(smoothScroller);
             }
         });
