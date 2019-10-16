@@ -90,9 +90,9 @@ class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
         locationTextView.setText(event.getVenue());
 
         //TODO: Code proper recognition for tags
-//        if(event.isBookmarked()) {
-//            bookmarkedImageView.setImageResource(R.drawable.bookmark_filled);
-//        }
+//        if(event.isBookmark()) {
+ //           bookmarkedImageView.setImageResource(R.drawable.bookmark_filled);
+   //     }
 
         //TODO: Set respective image sources
         Log.d("Type",event.getType());
@@ -110,19 +110,18 @@ class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
             tagImageView.setColorFilter(Color.YELLOW);
         }
 
-//        bookmarkedImageView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //TODO: Add code to update boolean and save data into database
-//                if(event.isBookmarked()) {
-//                    bookmarkedImageView.setImageResource(R.drawable.bookmark_outline);
-//                }
-//                else {
-//                    bookmarkedImageView.setImageResource(R.drawable.bookmark_filled);
-//                }
-//            }
-//        });
-
+     //   bookmarkedImageView.setOnClickListener(new View.OnClickListener() {
+       //     @Override
+         //   public void onClick(View view) {
+           //     //TODO: Add code to update boolean and save data into database
+             //   if(event.isBookmark()) {
+               //     bookmarkedImageView.setImageResource(R.drawable.bookmark_outline);
+                //}
+                //else {
+                  //  bookmarkedImageView.setImageResource(R.drawable.bookmark_filled);
+                //}
+            //}
+        //});
     }
 
     @Override

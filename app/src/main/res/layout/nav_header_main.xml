@@ -43,7 +43,7 @@
 
         <ImageView
             android:layout_width="188dp"
-            android:layout_height="24dp"
+            android:layout_height="21dp"
             android:layout_marginStart="14dp"
             android:layout_marginTop="6dp"
             android:layout_marginBottom="12dp"
