@@ -343,6 +343,7 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
                 super.onScrolled(recyclerView, dx, dy);
                 int position = manager.findFirstVisibleItemPosition();
                 Log.e("Position is", Integer.toString(position));
+                //TODO: When API is ready, update dates
 //                String day = eventDetailsList.get(position).getDate();
 //                switch(day) {
 //                    case 2:
