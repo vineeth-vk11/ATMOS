@@ -262,9 +262,13 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
             realmList = new ArrayList<>();
             RealmResults<ScheduleEvent> results = realm1.where(ScheduleEvent.class).findAll();
             results = results.sort("startTime");
+     
             if (results.size() == 0) {
                 Toast.makeText(context, "No Internet", Toast.LENGTH_SHORT).show();
             } else {
+                if (!isnetwork) {
+
+                }
                 for (int i = 0; i < results.size(); i++) {
                     if (results.get(i).getRoute() == null || results.get(i).getRoute().equals("")) {
                         Log.e(TAG, "No Route found");
@@ -274,7 +278,6 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
                         Log.e("Type: ", results.get(i).getType());
                     }
                 }
-
                 Log.e(TAG, String.valueOf(realmList.size()) + " " + String.valueOf(results.size()));
             }
             setAdapter(realmList);

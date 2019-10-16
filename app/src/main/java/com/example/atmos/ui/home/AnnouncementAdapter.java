@@ -1,5 +1,7 @@
 package com.example.atmos.ui.home;
 
+import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,49 +14,77 @@ import com.example.atmos.R;
 
 import java.util.ArrayList;
 
-class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementAdapter.ViewHolder> {
+public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementAdapter.FeedViewHolder> {
+    Context context;
+    LayoutInflater mInflater;
+    ArrayList<String> timeArray = new ArrayList<>();
+    ArrayList<String> deptArray = new ArrayList<>();
+    ArrayList<String> descArray = new ArrayList<>();
+    int i;
 
-    private ArrayList<Announcement> mAnnouncements;
+    public AnnouncementAdapter(Context context) {
+        this.context = context;
+        mInflater = LayoutInflater.from(context);
+        Log.v("Feed Adapter", "timeArray is created..!!!!");
+        System.out.print(i);
+    }
 
-    AnnouncementAdapter(ArrayList<Announcement> announcements) {
-        mAnnouncements = announcements;
+    public AnnouncementAdapter(Context context, ArrayList<String> timeArray, ArrayList<String> deptArray, ArrayList<String> descArray, int i) {
+        this.context = context;
+        this.timeArray = timeArray;
+        this.deptArray = deptArray;
+        this.descArray = descArray;
+        this.i = i;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-
-        View eventView = inflater.inflate(R.layout.list_item_announcements, parent, false);
-
-        ViewHolder viewHolder = new ViewHolder(eventView);
-        return viewHolder;
+    public AnnouncementAdapter.FeedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.list_item_announcements, parent, false);
+        return new AnnouncementAdapter.FeedViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Announcement curEvent = mAnnouncements.get(position);
-        TextView announcementName = holder.announcementName;
-        TextView announcementDateAndTime = holder.announcementDateAndTime;
-        announcementName.setText(curEvent.getAnnouncementName());
-        announcementDateAndTime.setText(curEvent.getAnnouncementDate());
+    public void onBindViewHolder(@NonNull FeedViewHolder holder, final int position) {
+        if (timeArray.get(position) != null) {
+            if (timeArray.get(position).equals("01-01 05:30")) {
+                holder.time.setVisibility(View.GONE);
+            } else {
+                holder.time.setVisibility(View.VISIBLE);
+                holder.time.setText(timeArray.get(position));
+
+            }
+        } else {
+            holder.time.setText("");
+        }
+        if (deptArray.get(position) != null && deptArray.get(position) != "") {
+            holder.dept.setText(deptArray.get(position));
+        } else {
+            holder.dept.setText("");
+        }
+        if (descArray.get(position) != null && descArray.get(position) != "") {
+            holder.desc.setText(descArray.get(position));
+        } else {
+            holder.desc.setText("");
+        }
     }
 
     @Override
     public int getItemCount() {
-        return mAnnouncements.size();
+        return i;
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
-        TextView announcementName;
-        TextView announcementDateAndTime;
+    public class FeedViewHolder extends RecyclerView.ViewHolder {
+        TextView time;
+        TextView dept;
+        TextView desc;
 
-        public ViewHolder(View itemView) {
+        public FeedViewHolder(View itemView) {
             super(itemView);
-            announcementName = itemView.findViewById(R.id.event_primary_header_text_view);
-            announcementDateAndTime = itemView.findViewById(R.id.event_secondary_header_text_view);
+            time = itemView.findViewById(R.id.time);
+            dept = itemView.findViewById(R.id.dept);
+            desc = itemView.findViewById(R.id.desc);
         }
-
     }
-
 }
