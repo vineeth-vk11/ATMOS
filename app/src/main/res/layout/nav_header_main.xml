@@ -47,7 +47,7 @@
             android:layout_marginStart="14dp"
             android:layout_marginTop="6dp"
             android:layout_marginBottom="12dp"
-            android:src="@drawable/atmos_subtitle"
+            android:src="@drawable/ic_wheel"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView3"
