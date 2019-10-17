@@ -98,9 +98,9 @@ public class SlumberPartyFragment extends Fragment implements RapidFloatingActio
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                int position = manager.findFirstVisibleItemPosition()+1;
+                int position = manager.findFirstVisibleItemPosition();
 
-                if(mPartyList!=null && !mPartyList.isEmpty() && position!=0)
+                if(mPartyList!=null && !mPartyList.isEmpty() && position!=-1)
                 {
                     String day = new SimpleDateFormat("dd").format(mPartyList.get(position).getPartyDate());
                     switch((day)) {
@@ -142,7 +142,7 @@ public class SlumberPartyFragment extends Fragment implements RapidFloatingActio
             @Override
             public void onClick(View view) {
                 //TODO: Set target scroll position for day 2
-                smoothScroller.setTargetPosition(24);
+                smoothScroller.setTargetPosition(noDayOne);
                 manager.startSmoothScroll(smoothScroller);
             }
         });
@@ -151,7 +151,16 @@ public class SlumberPartyFragment extends Fragment implements RapidFloatingActio
             @Override
             public void onClick(View view) {
                 //TODO: Set target scroll position for day 3
-                smoothScroller.setTargetPosition(44);
+                smoothScroller.setTargetPosition(noDayOne + noDayTwo + 1);
+                manager.startSmoothScroll(smoothScroller);
+            }
+        });
+
+        mDayFourTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO: Set target scroll position for day 3
+                smoothScroller.setTargetPosition(noDayOne + noDayTwo + noDayThree + 2);
                 manager.startSmoothScroll(smoothScroller);
             }
         });
@@ -236,25 +245,42 @@ public class SlumberPartyFragment extends Fragment implements RapidFloatingActio
         return filterBy;
     }
 
-    private ArrayList<PartyEvent> filterDetailList(ArrayList<PartyEvent> eventDetailsList, int filter) {
+    int noDayOne, noDayTwo, noDayThree, noDayFour;
+
+    private ArrayList<PartyEvent> filterDetailList(ArrayList<PartyEvent> events, int filter) {
+        noDayOne = 0;
+        noDayTwo = 0;
+        noDayThree = 0;
+        noDayFour = 0;
+
+        ArrayList<PartyEvent> filteredDetailList = new ArrayList<>();
+
         if (filter == FILTER_NONE)
-            return mPartyList;
+            filteredDetailList = events;
         else {
-            ArrayList<PartyEvent> filteredDetailList = new ArrayList<>();
-            for (PartyEvent event : eventDetailsList) {
+            for (PartyEvent event : events) {
                 String language = event.getLanguage();
                 if (language.equalsIgnoreCase(getLanguageFromInt(filter))) {
                     filteredDetailList.add(event);
                 }
             }
-            return filteredDetailList;
         }
+        for(PartyEvent event: filteredDetailList) {
+            int day = Integer.parseInt(new SimpleDateFormat("dd").format(event.getPartyDate()));
+            if(day == 19)
+                noDayTwo++;
+            else if(day == 20)
+                noDayThree++;
+            else if(day == 21)
+                noDayFour++;
+            else
+                noDayOne++;
+        }
+        return filteredDetailList;
     }
 
 
-
     private void addDateToPartyList() {
-        //TODO: Add data over here
         mPartyList.add(new PartyEvent("2019-10-18-22-00", "The Exorcist(1973)", "F102", "2hrs 15min", "English"));
         mPartyList.add(new PartyEvent("2019-10-19-00-15", "1408(2007)", "F102", "1hrs 52mins", "English"));
         mPartyList.add(new PartyEvent("2019-10-19-2-10", "Mama(2013)", "F102", "1hrs 40mins", "English"));
@@ -294,8 +320,6 @@ public class SlumberPartyFragment extends Fragment implements RapidFloatingActio
         mPartyList.add(new PartyEvent("2019-10-20-2-20", "Top Gun(1996)", "F104", "1hr 50min", "Hindi"));
         mPartyList.add(new PartyEvent("2019-10-20-22-00", "Gangs of Wasseypur Part 1(2012)", "F104", "2hr 40min", "Hindi"));
         mPartyList.add(new PartyEvent("2019-10-21-00-40", "Gangs of Wasseypur Part 2(2012)", "F104", "2hr 40min", "Hindi"));
-
-
     }
 
     private void setDayOne() {
