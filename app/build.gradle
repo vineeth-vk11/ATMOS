@@ -48,6 +48,6 @@ dependencies {
     implementation 'com.makeramen:roundedimageview:2.3.0'
     implementation 'com.felipecsl:gifimageview:2.1.0'
     implementation 'com.github.karanchuri:PermissionManager:0.1.0'
-
+    implementation 'com.google.firebase:firebase-messaging:20.0.0'
 }
 apply plugin: 'com.google.gms.google-services'
