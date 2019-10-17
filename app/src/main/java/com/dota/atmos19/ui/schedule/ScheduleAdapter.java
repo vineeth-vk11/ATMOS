@@ -52,7 +52,7 @@ class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
     }
 
     private ArrayList<ScheduleEvent> mEvents;
-    public ArrayList<String> bookMarked = new ArrayList<>();
+    public ArrayList<String> bookMarked;
     ScheduleAdapter(ArrayList<ScheduleEvent> events) {
         mEvents = events;
     }
@@ -68,7 +68,6 @@ class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
         View contactView = inflater.inflate(R.layout.list_item_schedule, parent, false);
         bookMarked = getArrayList("bookMarked");
         ViewHolder viewHolder = new ViewHolder(contactView);
-
         return viewHolder;
     }
 
@@ -104,13 +103,8 @@ class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
         nameTextView.setText(event.getName());
         locationTextView.setText(event.getVenue());
 
-        if(bookMarked!=null&&!bookMarked.isEmpty()
-                &&bookMarked.contains(event.getName()))
-        {
-
-                bookmarkedImageView.setImageResource(R.drawable.bookmark_filled);
-
-        }
+        if(bookMarked.contains(event.getName())) bookmarkedImageView.setImageResource(R.drawable.bookmark_filled);
+        else bookmarkedImageView.setImageResource(R.drawable.bookmark_outline);
         //TODO: Set respective image sources
         Log.d("Type",event.getType());
         if(event.getType().equals("Competition"))
@@ -129,27 +123,18 @@ class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
         bookmarkedImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: Add code to update boolean and save data into database
-
-                if(bookMarked!=null&&!bookMarked.isEmpty()&&bookMarked.contains(event.getName())) {
+                if(bookMarked.contains(event.getName())) {
                     bookMarked.remove(event.getName());
-                    saveArrayList(bookMarked,"bookMarked");
-                    notifyDataSetChanged();
-                    bookMarked.add(event.getName());
-                    eventRemainder.removeRemainder(event);
                     bookmarkedImageView.setImageResource(R.drawable.bookmark_outline);
                     Toast.makeText(mContext,"You will be notified 15 minutes before event",Toast.LENGTH_SHORT);
+                    saveArrayList(bookMarked,"bookMarked");
+                    eventRemainder.removeRemainder(event);
                 }
                 else {
-                    if(bookMarked==null||bookMarked.isEmpty()) {
-                        bookMarked = new ArrayList<>();
-                    }
                     bookMarked.add(event.getName());
-                    eventRemainder.createRemainder(event);
-                    saveArrayList(bookMarked,"bookMarked");
-                    notifyDataSetChanged();
-                    //saveHashMap(hashMap,"position");
                     bookmarkedImageView.setImageResource(R.drawable.bookmark_filled);
+                    saveArrayList(bookMarked,"bookMarked");
+                    eventRemainder.createRemainder(event);
                 }
             }
         });
@@ -167,7 +152,9 @@ class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
         Gson gson = new Gson();
         String json = prefs.getString(key, null);
         Type type = new TypeToken<ArrayList<String>>() {}.getType();
-        return gson.fromJson(json, type);
+        ArrayList<String> temp = gson.fromJson(json, type);
+        if(temp==null) return new ArrayList<>();
+        else return temp;
     }
     @Override
     public int getItemCount() {

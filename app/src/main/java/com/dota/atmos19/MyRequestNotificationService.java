@@ -68,8 +68,6 @@ public class MyRequestNotificationService extends FirebaseMessagingService {
         try {
             if (remoteMessage.getData().size() > 0) {
                 Log.d("Notification", remoteMessage.getData().toString());
-                String eventName = remoteMessage.getData().get("eventName");
-                if(!getArrayList("bookMarked").contains(eventName)) return;
                 Intent intent = new Intent(MyRequestNotificationService.this, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 PendingIntent pendingIntent = PendingIntent.getActivity(MyRequestNotificationService.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
