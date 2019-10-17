@@ -16,12 +16,9 @@ import com.example.atmos.R;
 
 public class ReachUsFragment extends Fragment {
 
-    private ReachUsViewModel reachUsViewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        reachUsViewModel =
-                ViewModelProviders.of(this).get(ReachUsViewModel.class);
+
         View root = inflater.inflate(R.layout.fragment_reach_us, container, false);
 
         return root;

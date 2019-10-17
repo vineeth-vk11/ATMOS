@@ -1,6 +1,7 @@
 package com.example.atmos.ui.slummberparty;
 
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,14 +17,21 @@ import androidx.recyclerview.widget.LinearSmoothScroller;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.atmos.R;
+import com.example.atmos.ui.schedule.ScheduleEvent;
+import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton;
+import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionHelper;
+import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout;
+import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem;
+import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloatingActionContentLabelList;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import io.realm.Realm;
 
-public class SlumberPartyFragment extends Fragment {
+public class SlumberPartyFragment extends Fragment implements RapidFloatingActionContentLabelList.OnRapidFloatingActionContentLabelListListener{
 
     private TextView mDayOneTextView;
     private CardView mDayOneCardView;
@@ -35,6 +43,10 @@ public class SlumberPartyFragment extends Fragment {
     private ArrayList<PartyEvent> mPartyList;
 
     private RecyclerView mPartyRecycler;
+
+    private RapidFloatingActionLayout rfaLayout;
+    private RapidFloatingActionButton filterFab;
+    private RapidFloatingActionHelper filterFabHelpler;
 
     private PartyAdapter mAdapter;
 
@@ -50,10 +62,27 @@ public class SlumberPartyFragment extends Fragment {
 
         mPartyRecycler = root.findViewById(R.id.party_recycler_view);
 
+        rfaLayout = root.findViewById(R.id.party_filter_kayout);
+        filterFab = root.findViewById(R.id.party_filter_fab);
+
         mPartyList = new ArrayList<>();
         addDateToPartyList();
 
-        mAdapter = new PartyAdapter(mPartyList);
+        displayFabOptions();
+        setAdapter(FILTER_NONE);
+
+        return root;
+    }
+
+    private static final int FILTER_ENGLISH = 0;
+    private static final int FILTER_HINDI = 1;
+    private static final int FILTER_TELUGU = 2;
+    private static final int FILTER_BENGALI = 3;
+    private static final int FILTER_NONE = 4;
+    
+    private void setAdapter(int filterBy) {
+
+        mAdapter = new PartyAdapter(filterDetailList(mPartyList, filterBy));
         mPartyRecycler.setAdapter(mAdapter);
         mPartyRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -65,7 +94,7 @@ public class SlumberPartyFragment extends Fragment {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                int position = manager.findFirstVisibleItemPosition();
+                int position = manager.findFirstVisibleItemPosition() + 1;
                 if(mPartyList!=null && !mPartyList.isEmpty() && position!=0)
                 {
                     String day = new SimpleDateFormat("dd").format(mPartyList.get(position).getPartyDate());
@@ -92,7 +121,6 @@ public class SlumberPartyFragment extends Fragment {
             }
         };
 
-
         mDayOneCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,7 +135,7 @@ public class SlumberPartyFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //TODO: Set target scroll position for day 2
-                //setDayTwo();
+                setDayTwo();
                 smoothScroller.setTargetPosition(24);
                 manager.startSmoothScroll(smoothScroller);
             }
@@ -117,29 +145,111 @@ public class SlumberPartyFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //TODO: Set target scroll position for day 3
-                //setDayThree();
+                setDayThree();
                 smoothScroller.setTargetPosition(44);
                 manager.startSmoothScroll(smoothScroller);
             }
         });
 
-        return root;
     }
+
+
+    private void displayFabOptions() {
+        RapidFloatingActionContentLabelList fabContent = new RapidFloatingActionContentLabelList(getContext());
+        fabContent.setOnRapidFloatingActionContentLabelListListener(this);
+        List<RFACLabelItem> options = new ArrayList<>();
+        options.add(new RFACLabelItem<Integer>()
+                .setLabel(getString(R.string.english))
+                .setWrapper(FILTER_ENGLISH)
+        );
+        options.add(new RFACLabelItem<Integer>()
+                .setLabel(getString(R.string.hindi))
+                .setWrapper(FILTER_HINDI)
+        );
+        options.add(new RFACLabelItem<Integer>()
+                .setLabel(getString(R.string.telugu))
+                .setWrapper(FILTER_TELUGU)
+        );
+        options.add(new RFACLabelItem<Integer>()
+                .setLabel(getString(R.string.bengali))
+                .setWrapper(FILTER_BENGALI)
+        );
+        options.add(new RFACLabelItem<Integer>()
+                .setLabel(getString(R.string.none))
+                .setWrapper(FILTER_NONE)
+        );
+        fabContent.setItems(options);
+        filterFabHelpler = new RapidFloatingActionHelper(getContext(), rfaLayout, filterFab, fabContent).build();
+    }
+
+    @Override
+    public void onRFACItemLabelClick(int position, RFACLabelItem item) {
+        switch (position) {
+            case FILTER_HINDI:
+                setAdapter(FILTER_HINDI);
+                mAdapter.notifyDataSetChanged();
+                filterFabHelpler.toggleContent();
+                break;
+            case FILTER_TELUGU:
+                setAdapter(FILTER_TELUGU);
+                mAdapter.notifyDataSetChanged();
+                filterFabHelpler.toggleContent();
+                break;
+            case FILTER_BENGALI:
+                setAdapter(FILTER_BENGALI);
+                mAdapter.notifyDataSetChanged();
+                filterFabHelpler.toggleContent();
+                break;
+            case FILTER_ENGLISH:
+                setAdapter(FILTER_ENGLISH);
+                mAdapter.notifyDataSetChanged();
+                filterFabHelpler.toggleContent();
+                break;
+            case FILTER_NONE:
+            default:
+                setAdapter(FILTER_NONE);
+                mAdapter.notifyDataSetChanged();
+                filterFabHelpler.toggleContent();
+        }
+    }
+
+    @Override
+    public void onRFACItemIconClick(int position, RFACLabelItem item) {
+        //do nothing since icons have been disabled
+    }
+
+    private String getLanguageFromInt(int lang) {
+        String filterBy = getString(R.string.english);
+        if(lang==FILTER_ENGLISH)
+            filterBy = getString(R.string.english);
+        else if(lang==FILTER_HINDI)
+            filterBy = getString(R.string.hindi);
+        else if(lang==FILTER_TELUGU)
+            filterBy = getString(R.string.telugu);
+        else if(lang==FILTER_BENGALI)
+            filterBy = getString(R.string.bengali);
+        return filterBy;
+    }
+
+    private ArrayList<PartyEvent> filterDetailList(ArrayList<PartyEvent> eventDetailsList, int filter) {
+        if (filter == FILTER_NONE)
+            return mPartyList;
+        else {
+            ArrayList<PartyEvent> filteredDetailList = new ArrayList<>();
+            for (PartyEvent event : eventDetailsList) {
+                String language = event.getLanguage();
+                if (language.equalsIgnoreCase(getLanguageFromInt(filter))) {
+                    filteredDetailList.add(event);
+                }
+            }
+            return filteredDetailList;
+        }
+    }
+
+
 
     private void addDateToPartyList() {
         //TODO: Add data over here
-        mPartyList.add(new PartyEvent(new Date(), "The Exorcist", "F102", "2hrs 15min", "English"));
-        mPartyList.add(new PartyEvent(new Date(), "1408(2007)", "F102", "2hrs 5mins", "English"));
-        mPartyList.add(new PartyEvent(new Date(), "Mama(2013)", "F102", "2hrs 5mins", "English"));
-        mPartyList.add(new PartyEvent(new Date(), "Shutter(2004)", "F102", "2hrs 5mins", "English"));
-        mPartyList.add(new PartyEvent(new Date(), "Halloween(2018)", "F102", "2hrs 5mins", "English"));
-        mPartyList.add(new PartyEvent(new Date(), "Identity(2003)", "F102", "2hrs 5mins", "English"));
-        mPartyList.add(new PartyEvent(new Date(), "Ju-On: The Grudge(2002)", "F102", "2hrs 5mins", "English"));
-        mPartyList.add(new PartyEvent(new Date(), "The Strangers(2008)", "F102", "2hrs 5mins", "English"));
-        mPartyList.add(new PartyEvent(new Date(), "Hell Fest(2018)", "F102", "2hrs 5mins", "English"));
-        mPartyList.add(new PartyEvent(new Date(), "Us(2019)", "F102", "2hrs 5mins", "English"));
-        mPartyList.add(new PartyEvent(new Date(), "It Follows(2014)", "F102", "2hrs 5mins", "English"));
-
     }
 
     private void setDayOne() {

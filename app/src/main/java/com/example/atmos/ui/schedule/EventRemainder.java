@@ -94,9 +94,6 @@ public class EventRemainder {
         long remainderId = checkIfReminderExist(cr,Long.parseLong(eventId));
         Log.d("RemainderId",String.valueOf(remainderId));
         deleteReminderOnEvent(remainderId,cr);
-
-       // cr.delete(EVENTS_URI,CalendarContract.Events.DESCRIPTION=mevent.getName(),null);
-
     }
     public static void deleteReminderOnEvent(Long reminderId,ContentResolver contentResolver) {
         Uri reminderUri = ContentUris.withAppendedId(CalendarContract.Reminders.CONTENT_URI, reminderId);
