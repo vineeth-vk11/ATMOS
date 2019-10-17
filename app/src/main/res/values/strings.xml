@@ -26,6 +26,11 @@
     <string name="day_two">Day 2</string>
     <string name="day_three">Day 3</string>
 
+    <string name="oct18">OCT 18</string>
+    <string name="oct19">OCT 19</string>
+    <string name="oct20">OCT 20</string>
+    <string name="oct21">OCT 21</string>
+
     <string name="Competition">Competition</string>
     <string name="Workshop">Workshop</string>
     <string name="Talk">Talk</string>
