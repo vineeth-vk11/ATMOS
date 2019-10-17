@@ -15,4 +15,10 @@
     <color name="colorWorkshop">#00FF00</color>
     <color name="colorTalk">#FFFF00</color>
 
+    <color name="textColor1">#202021</color>
+    <color name="lighttextcolor">#383839</color>
+    <color name="topbar_textcolor">#FFF</color>
+    <color name="backgroundColor">#fcf3ed</color>
+    <color name="progressbar_color">#202021</color>
+
 </resources>
