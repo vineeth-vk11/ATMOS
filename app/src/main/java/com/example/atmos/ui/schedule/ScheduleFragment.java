@@ -351,19 +351,23 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
                 super.onScrolled(recyclerView, dx, dy);
                 int position = manager.findFirstVisibleItemPosition() + 1;
                 Log.d("Position", Integer.toString(position));
-                String day = getDay(eventDetailsList.get(position).getStartTime());
-                Log.d("Day", day);
-                switch(getDay(day)) {
-                    case "19":
-                        setDayTwo();
-                        break;
-                    case "20":
-                        setDayThree();
-                        break;
-                    case "18":
-                    default:
-                        setDayOne();
+                if(eventDetailsList!=null&&!eventDetailsList.isEmpty())
+                {
+                    String day = getDay(eventDetailsList.get(position).getStartTime());
+                    Log.d("Day", day);
+                    switch((day)) {
+                        case "19":
+                            setDayTwo();
+                            break;
+                        case "20":
+                            setDayThree();
+                            break;
+                        case "18":
+                        default:
+                            setDayOne();
+                    }
                 }
+
             }
         });
 

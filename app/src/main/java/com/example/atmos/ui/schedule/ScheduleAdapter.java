@@ -1,7 +1,9 @@
 package com.example.atmos.ui.schedule;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,15 +15,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.atmos.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-
-import io.realm.Realm;
-import io.realm.RealmResults;
 
 class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
 
@@ -36,7 +38,7 @@ class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
 
         ViewHolder(View itemView) {
             super(itemView);
-
+            this.setIsRecyclable(false);
             timePrimaryTextView = itemView.findViewById(R.id.schedule_event_time_primary_text_view);
             timeSecondaryTextView = itemView.findViewById(R.id.schedule_event_time_secondary_text_view);
             nameTextView = itemView.findViewById(R.id.schedule_event_name_text_view);
@@ -49,11 +51,11 @@ class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
     }
 
     private ArrayList<ScheduleEvent> mEvents;
-
+    public ArrayList<String> bookMarked = new ArrayList<>();
     ScheduleAdapter(ArrayList<ScheduleEvent> events) {
         mEvents = events;
     }
-
+    EventRemainder eventRemainder;
     private Context mContext;
 
     @NonNull
@@ -61,16 +63,17 @@ class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         mContext = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(mContext);
-
+        eventRemainder = new EventRemainder(mContext);
         View contactView = inflater.inflate(R.layout.list_item_schedule, parent, false);
-
+        bookMarked = getArrayList("bookMarked");
         ViewHolder viewHolder = new ViewHolder(contactView);
+
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ScheduleEvent event = mEvents.get(position);
+    public void onBindViewHolder(@NonNull ViewHolder holder,int position) {
+        final ScheduleEvent event = mEvents.get(position);
 
         TextView timePrimaryTextView = holder.timePrimaryTextView;
         TextView timeSecondaryTextView = holder.timeSecondaryTextView;
@@ -98,11 +101,13 @@ class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
         nameTextView.setText(event.getName());
         locationTextView.setText(event.getVenue());
 
-        //TODO: Code proper recognition for tags
-//        if(event.isBookmark()) {
- //           bookmarkedImageView.setImageResource(R.drawable.bookmark_filled);
-   //     }
+        if(bookMarked!=null&&!bookMarked.isEmpty()
+                &&bookMarked.contains(event.getName()))
+        {
 
+                bookmarkedImageView.setImageResource(R.drawable.bookmark_filled);
+
+        }
         //TODO: Set respective image sources
         Log.d("Type",event.getType());
         if(event.getType().equals("Competition"))
@@ -118,21 +123,46 @@ class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
             tagTextView.setText(mContext.getString(R.string.Talk));
             tagImageView.setColorFilter(Color.YELLOW);
         }
+        bookmarkedImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO: Add code to update boolean and save data into database
 
-     //   bookmarkedImageView.setOnClickListener(new View.OnClickListener() {
-       //     @Override
-         //   public void onClick(View view) {
-           //     //TODO: Add code to update boolean and save data into database
-             //   if(event.isBookmark()) {
-               //     bookmarkedImageView.setImageResource(R.drawable.bookmark_outline);
-                //}
-                //else {
-                  //  bookmarkedImageView.setImageResource(R.drawable.bookmark_filled);
-                //}
-            //}
-        //});
+                if(bookMarked!=null&&!bookMarked.isEmpty()&&bookMarked.contains(event.getName())) {
+                    bookMarked.remove(event.getName());
+                    saveArrayList(bookMarked,"bookMarked");
+                    bookMarked.add(event.getName());
+                    eventRemainder.removeRemainder(event);
+                    bookmarkedImageView.setImageResource(R.drawable.bookmark_outline);
+                }
+                else {
+                    if(bookMarked==null||bookMarked.isEmpty()) {
+                        bookMarked = new ArrayList<>();
+                    }
+                    bookMarked.add(event.getName());
+                    eventRemainder.createRemainder(event);
+                    saveArrayList(bookMarked,"bookMarked");
+                    //saveHashMap(hashMap,"position");
+                    bookmarkedImageView.setImageResource(R.drawable.bookmark_filled);
+                }
+            }
+        });
     }
-
+    public void saveArrayList(ArrayList<String> list, String key){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        SharedPreferences.Editor editor = prefs.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+        editor.putString(key, json);
+        editor.apply();
+    }
+    public ArrayList<String> getArrayList(String key){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        Gson gson = new Gson();
+        String json = prefs.getString(key, null);
+        Type type = new TypeToken<ArrayList<String>>() {}.getType();
+        return gson.fromJson(json, type);
+    }
     @Override
     public int getItemCount() {
         return mEvents.size();
