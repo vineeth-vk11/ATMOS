@@ -159,7 +159,7 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
             filterTag = "talk";
         else
             filterTag = "none";
-        setAdapter(filterDetailList(eventDetailsList, filterTag));
+        setAdapter(filterDetailList(realmList, filterTag));
     }
 
 
@@ -213,7 +213,13 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
                     for (int i = 0; i < eventDetailsList.size(); i++) {
                         // Log.d("Api response",eventDetailsList.get(i));
                         //System.out.println(eventDetailsList.get(i));
-                        addDatatoRealm(eventDetailsList.get(i));
+                        if(eventDetailsList.get(i).getType().equalsIgnoreCase("Workshop")||eventDetailsList.get(i).getType().equalsIgnoreCase("Competition")||eventDetailsList.get(i).getType().equalsIgnoreCase("Talk"))
+                        {
+                            if(eventDetailsList.get(i).getRoute()!=null&&!eventDetailsList.get(i).getRoute().equals("")) {
+                                addDatatoRealm(eventDetailsList.get(i));
+                            }
+                        }
+
                     }
                 } catch (Exception e) {
                     Toast.makeText(context, "There was a problem fetching the data. Try again later", Toast.LENGTH_SHORT).show();

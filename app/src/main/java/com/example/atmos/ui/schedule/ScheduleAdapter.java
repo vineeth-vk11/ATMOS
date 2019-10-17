@@ -130,6 +130,7 @@ class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
                 if(bookMarked!=null&&!bookMarked.isEmpty()&&bookMarked.contains(event.getName())) {
                     bookMarked.remove(event.getName());
                     saveArrayList(bookMarked,"bookMarked");
+                    notifyDataSetChanged();
                     bookMarked.add(event.getName());
                     eventRemainder.removeRemainder(event);
                     bookmarkedImageView.setImageResource(R.drawable.bookmark_outline);
@@ -141,6 +142,7 @@ class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
                     bookMarked.add(event.getName());
                     eventRemainder.createRemainder(event);
                     saveArrayList(bookMarked,"bookMarked");
+                    notifyDataSetChanged();
                     //saveHashMap(hashMap,"position");
                     bookmarkedImageView.setImageResource(R.drawable.bookmark_filled);
                 }
