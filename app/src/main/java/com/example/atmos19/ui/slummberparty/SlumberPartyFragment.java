@@ -310,7 +310,7 @@ public class SlumberPartyFragment extends Fragment implements RapidFloatingActio
         mPartyList.add(new PartyEvent("2019-10-19-2-20", "Vicky Donor(2012)", "F104", "2hr 5min", "Hindi"));
         mPartyList.add(new PartyEvent("2019-10-19-22-00", "Delhi Belly(2011)", "F104", "1hr 43min", "Hindi"));
         mPartyList.add(new PartyEvent("2019-10-19-23-50", "Batla House(2019)", "F104", "2r 26min", "Hindi"));
-        mPartyList.add(new PartyEvent("2019-10-20-2-20", "Top Gun(1996)", "F104", "1hr 50min", "Hindi"));
+        mPartyList.add(new PartyEvent("2019-10-20-2-20", "Top Gun(1996)", "F104", "1hr 50min", "English"));
         mPartyList.add(new PartyEvent("2019-10-20-22-00", "Gangs of Wasseypur Part 1(2012)", "F104", "2hr 40min", "Hindi"));
         mPartyList.add(new PartyEvent("2019-10-21-00-40", "Gangs of Wasseypur Part 2(2012)", "F104", "2hr 40min", "Hindi"));
     }
