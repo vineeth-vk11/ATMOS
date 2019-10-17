@@ -7,47 +7,47 @@
 
     <fragment
         android:id="@+id/nav_schedule"
-        android:name="com.example.atmos19.ui.schedule.ScheduleFragment"
+        android:name="com.dota.atmos19.ui.schedule.ScheduleFragment"
         android:label="@string/menu_schedule"
         tools:layout="@layout/fragment_schedule" />
 
     <fragment
         android:id="@+id/nav_announcements"
-        android:name="com.example.atmos19.ui.home.HomeFragment"
+        android:name="com.dota.atmos19.ui.home.HomeFragment"
         android:label="@string/menu_announcements"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_contact"
-        android:name="com.example.atmos19.ui.contactus.ContactUsFragment"
+        android:name="com.dota.atmos19.ui.contactus.ContactUsFragment"
         android:label="@string/menu_contact"
         tools:layout="@layout/fragment_contact_us" />
 
     <fragment
         android:id="@+id/nav_about"
-        android:name="com.example.atmos19.ui.aboutus.AboutUsFragment"
+        android:name="com.dota.atmos19.ui.aboutus.AboutUsFragment"
         android:label="@string/menu_about"
         tools:layout="@layout/fragment_about_us" />
 
     <fragment
         android:id="@+id/nav_credits"
-        android:name="com.example.atmos19.ui.appcredits.AppCreditsFragment"
+        android:name="com.dota.atmos19.ui.appcredits.AppCreditsFragment"
         android:label="@string/menu_credits"
         tools:layout="@layout/fragment_app_credits" />
 
     <fragment
         android:id="@+id/nav_reachus"
-        android:name="com.example.atmos19.ui.reachus.ReachUsFragment"
+        android:name="com.dota.atmos19.ui.reachus.ReachUsFragment"
         android:label="@string/menu_reachus"
         tools:layout="@layout/fragment_reach_us" />
     <fragment
         android:id="@+id/nav_map"
-        android:name="com.example.atmos19.ui.campusmap.CampusMapFragment"
+        android:name="com.dota.atmos19.ui.campusmap.CampusMapFragment"
         android:label="@string/menu_map"
         tools:layout="@layout/fragment_campus_map" />
     <fragment
         android:id="@+id/nav_party"
-        android:name="com.example.atmos19.ui.slummberparty.SlumberPartyFragment"
+        android:name="com.dota.atmos19.ui.slummberparty.SlumberPartyFragment"
         android:label="@string/menu_party"
         tools:layout="@layout/fragment_slumber_party" />
 

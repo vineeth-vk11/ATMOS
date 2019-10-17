@@ -45,12 +45,36 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:48569895794:android:5bea507af9a984a2972beb",
+        "mobilesdk_app_id": "1:48569895794:android:4a1a4d2254c61d95972beb",
         "android_client_info": {
-          "package_name": "com.example.atmos19"
+          "package_name": "com.dota.atmos19"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "48569895794-v11t3su7ci7iuodcec6qst1af3tkk3hd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dota.atmos19",
+            "certificate_hash": "0f051b68d4ce8a5aca2c61438549d6e2e4465088"
+          }
+        },
+        {
+          "client_id": "48569895794-jshi583274rngkt197n07h1n264c1ajk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dota.atmos19",
+            "certificate_hash": "3556fec65b142a538a31b08ed1e4fc1c180336ff"
+          }
+        },
+        {
+          "client_id": "48569895794-otbnl3lebldf19kmmr2hd276r4t31fum.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dota.atmos19",
+            "certificate_hash": "b6d41f506a18402c95bde4eea86e15beb09349a2"
+          }
+        },
         {
           "client_id": "48569895794-1dn149l4o0j2b4un7jh74u12kvr414kv.apps.googleusercontent.com",
           "client_type": 3
