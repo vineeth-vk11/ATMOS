@@ -83,7 +83,7 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
 
         displayFabOptions();
 
-        progressBar.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.INVISIBLE);
         Realm.init(context);
         realm = Realm.getDefaultInstance();
         getDatafromRealm(realm);

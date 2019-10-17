@@ -13,6 +13,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
+import com.karan.churi.PermissionManager.PermissionManager;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -23,12 +24,16 @@ import android.view.Menu;
 
 public class MainActivity extends AppCompatActivity {
 
+    PermissionManager permission;
+
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        permission=new PermissionManager() {};
+        permission.checkAndRequestPermissions(this);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -51,5 +56,10 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
+        permission.checkResult(requestCode,permissions, grantResults);
     }
 }
