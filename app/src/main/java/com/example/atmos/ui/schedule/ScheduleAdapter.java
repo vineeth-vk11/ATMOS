@@ -17,11 +17,7 @@ import com.example.atmos.R;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
-
-import io.realm.Realm;
-import io.realm.RealmResults;
 
 class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
 
@@ -37,12 +33,12 @@ class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
         ViewHolder(View itemView) {
             super(itemView);
 
-            timePrimaryTextView = itemView.findViewById(R.id.schedule_event_time_primary_text_view);
-            timeSecondaryTextView = itemView.findViewById(R.id.schedule_event_time_secondary_text_view);
-            nameTextView = itemView.findViewById(R.id.schedule_event_name_text_view);
-            locationTextView = itemView.findViewById(R.id.schedule_event_location_text_view);
+            timePrimaryTextView = itemView.findViewById(R.id.party_time_primary_text_view);
+            timeSecondaryTextView = itemView.findViewById(R.id.party_time_secondary_text_view);
+            nameTextView = itemView.findViewById(R.id.party_name_text_view);
+            locationTextView = itemView.findViewById(R.id.party_location_text_view);
             tagImageView = itemView.findViewById(R.id.schedule_event_tag_image_view);
-            tagTextView = itemView.findViewById(R.id.schedule_event_tag_text_view);
+            tagTextView = itemView.findViewById(R.id.party_time_text_view);
             bookmarkedImageView = itemView.findViewById(R.id.event_bookmark_image_view);
         }
 
