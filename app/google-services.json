@@ -45,9 +45,9 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:48569895794:android:47a0346d99b06cc7972beb",
+        "mobilesdk_app_id": "1:48569895794:android:5bea507af9a984a2972beb",
         "android_client_info": {
-          "package_name": "com.example.atmos"
+          "package_name": "com.example.atmos19"
         }
       },
       "oauth_client": [

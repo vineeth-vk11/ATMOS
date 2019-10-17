@@ -78,6 +78,7 @@
                 tools:text="Robowars" />
 
             <LinearLayout
+                android:id="@+id/linearLayout4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -94,9 +95,9 @@
                     android:id="@+id/party_location_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textAllCaps="true"
                     android:textColor="@color/textSecondary"
                     android:textSize="17sp"
-                    android:textAllCaps="true"
                     tools:text="G-101" />
 
                 <LinearLayout
@@ -132,6 +133,20 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/bookmark_outline" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="date"
+                android:textColor="@color/textTertiary"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.886"
+                app:layout_constraintStart_toEndOf="@+id/linearLayout4"
+                app:layout_constraintTop_toBottomOf="@+id/event_bookmark_image_view"
+                app:layout_constraintVertical_bias="0.719" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
