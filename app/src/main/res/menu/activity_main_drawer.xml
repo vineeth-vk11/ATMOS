@@ -13,6 +13,10 @@
             android:icon="@drawable/schedule"
             android:title="@string/menu_schedule" />
         <item
+            android:id="@+id/nav_party"
+            android:icon="@drawable/movie"
+            android:title="@string/menu_party"/>
+        <item
             android:id="@+id/nav_contact"
             android:icon="@drawable/contact_us"
             android:title="@string/menu_contact" />
@@ -32,10 +36,6 @@
             android:id="@+id/nav_map"
             android:icon="@drawable/ic_menu_manage"
             android:title="@string/menu_map" />
-        <item
-            android:id="@+id/nav_notifications"
-            android:icon="@drawable/notifications"
-            android:title="@string/menu_notifications" />
     </group>
 
 

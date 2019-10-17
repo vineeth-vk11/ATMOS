@@ -112,7 +112,7 @@
                         android:src="@drawable/circle" />
 
                     <TextView
-                        android:id="@+id/party_time_text_view"
+                        android:id="@+id/party_duration_text_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/textSecondary"
