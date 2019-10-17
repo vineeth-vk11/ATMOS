@@ -5,18 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_image6"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="36dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/shishir"
         app:civ_border_color="#FF000000"
         app:civ_border_width="2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout2" />
-
 
     <TextView
         android:id="@+id/android"
@@ -110,7 +110,7 @@
             android:id="@+id/profile_image5"
             android:layout_width="102dp"
             android:layout_height="80dp"
-            android:layout_marginStart="24dp"
+            android:layout_marginStart="28dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="20dp"
             android:layout_weight="0"
