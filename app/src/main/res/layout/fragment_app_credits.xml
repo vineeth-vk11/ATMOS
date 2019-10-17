@@ -125,7 +125,6 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="20dp"
             android:layout_weight="0"
-            android:rotation="270"
             android:src="@drawable/ayush"
             app:civ_border_color="#FF000000"
             app:civ_border_width="2dp"
