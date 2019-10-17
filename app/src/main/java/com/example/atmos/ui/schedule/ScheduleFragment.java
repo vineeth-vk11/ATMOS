@@ -351,7 +351,7 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
                 super.onScrolled(recyclerView, dx, dy);
                 int position = manager.findFirstVisibleItemPosition() + 1;
                 Log.d("Position", Integer.toString(position));
-                if(eventDetailsList!=null&&!eventDetailsList.isEmpty())
+                if(eventDetailsList!=null&&!eventDetailsList.isEmpty()&&position!=0)
                 {
                     String day = getDay(eventDetailsList.get(position).getStartTime());
                     Log.d("Day", day);
@@ -383,6 +383,7 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
             @Override
             public void onClick(View view) {
                 //TODO: Set target scroll position for day 1
+                setDayOne();
                 smoothScroller.setTargetPosition(0);
                 manager.startSmoothScroll(smoothScroller);
             }
@@ -392,6 +393,7 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
             @Override
             public void onClick(View view) {
                 //TODO: Set target scroll position for day 2
+                //setDayTwo();
                 smoothScroller.setTargetPosition(24);
                 manager.startSmoothScroll(smoothScroller);
             }
@@ -401,6 +403,7 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
             @Override
             public void onClick(View view) {
                 //TODO: Set target scroll position for day 3
+                //setDayThree();
                 smoothScroller.setTargetPosition(44);
                 manager.startSmoothScroll(smoothScroller);
             }
