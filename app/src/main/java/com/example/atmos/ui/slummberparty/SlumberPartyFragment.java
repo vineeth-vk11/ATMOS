@@ -39,6 +39,8 @@ public class SlumberPartyFragment extends Fragment implements RapidFloatingActio
     private CardView mDayTwoCardView;
     private TextView mDayThreeTextView;
     private CardView mDayThrreeCardView;
+    private TextView mDayFourTextView;
+    private CardView mDayFourCardView;
 
     private ArrayList<PartyEvent> mPartyList;
 
@@ -56,9 +58,11 @@ public class SlumberPartyFragment extends Fragment implements RapidFloatingActio
         mDayOneTextView = root.findViewById(R.id.header_day_one_text_view_party);
         mDayTwoTextView = root.findViewById(R.id.header_day_two_text_view_party);
         mDayThreeTextView = root.findViewById(R.id.header_day_three_text_view_party);
+        mDayFourTextView = root.findViewById(R.id.header_day_four_text_view_party);
         mDayOneCardView = root.findViewById(R.id.day_one_header_card_view_party);
         mDayTwoCardView = root.findViewById(R.id.day_two_header_card_view_party);
         mDayThrreeCardView = root.findViewById(R.id.day_three_header_card_view_party);
+        mDayFourCardView = root.findViewById(R.id.day_four_header_card_view_party);
 
         mPartyRecycler = root.findViewById(R.id.party_recycler_view);
 
@@ -79,7 +83,7 @@ public class SlumberPartyFragment extends Fragment implements RapidFloatingActio
     private static final int FILTER_TELUGU = 2;
     private static final int FILTER_BENGALI = 3;
     private static final int FILTER_NONE = 4;
-    
+
     private void setAdapter(int filterBy) {
 
         mAdapter = new PartyAdapter(filterDetailList(mPartyList, filterBy));
@@ -94,7 +98,8 @@ public class SlumberPartyFragment extends Fragment implements RapidFloatingActio
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                int position = manager.findFirstVisibleItemPosition() + 1;
+                int position = manager.findFirstVisibleItemPosition();
+
                 if(mPartyList!=null && !mPartyList.isEmpty() && position!=0)
                 {
                     String day = new SimpleDateFormat("dd").format(mPartyList.get(position).getPartyDate());
@@ -104,6 +109,9 @@ public class SlumberPartyFragment extends Fragment implements RapidFloatingActio
                             break;
                         case "20":
                             setDayThree();
+                            break;
+                        case "21":
+                            setDayFour();
                             break;
                         case "18":
                         default:
@@ -125,7 +133,6 @@ public class SlumberPartyFragment extends Fragment implements RapidFloatingActio
             @Override
             public void onClick(View view) {
                 //TODO: Set target scroll position for day 1
-                setDayOne();
                 smoothScroller.setTargetPosition(0);
                 manager.startSmoothScroll(smoothScroller);
             }
@@ -135,7 +142,6 @@ public class SlumberPartyFragment extends Fragment implements RapidFloatingActio
             @Override
             public void onClick(View view) {
                 //TODO: Set target scroll position for day 2
-                setDayTwo();
                 smoothScroller.setTargetPosition(24);
                 manager.startSmoothScroll(smoothScroller);
             }
@@ -145,7 +151,6 @@ public class SlumberPartyFragment extends Fragment implements RapidFloatingActio
             @Override
             public void onClick(View view) {
                 //TODO: Set target scroll position for day 3
-                setDayThree();
                 smoothScroller.setTargetPosition(44);
                 manager.startSmoothScroll(smoothScroller);
             }
@@ -256,30 +261,48 @@ public class SlumberPartyFragment extends Fragment implements RapidFloatingActio
         mDayOneTextView.setTextColor(getContext().getColor(R.color.colorPrimary));
         mDayTwoTextView.setTextColor(getContext().getColor(R.color.secondary));
         mDayThreeTextView.setTextColor(getContext().getColor(R.color.secondary));
+        mDayFourTextView.setTextColor(getContext().getColor(R.color.secondary));
 
         mDayOneCardView.setCardBackgroundColor(getContext().getColor(R.color.secondary));
         mDayTwoCardView.setCardBackgroundColor(getContext().getColor(R.color.colorPrimary));
         mDayThrreeCardView.setCardBackgroundColor(getContext().getColor(R.color.colorPrimary));
+        mDayFourCardView.setCardBackgroundColor(getContext().getColor(R.color.colorPrimary));
     }
 
     private void setDayTwo() {
         mDayOneTextView.setTextColor(getContext().getColor(R.color.secondary));
         mDayTwoTextView.setTextColor(getContext().getColor(R.color.colorPrimary));
         mDayThreeTextView.setTextColor(getContext().getColor(R.color.secondary));
+        mDayFourTextView.setTextColor(getContext().getColor(R.color.secondary));
 
         mDayOneCardView.setCardBackgroundColor(getContext().getColor(R.color.colorPrimary));
         mDayTwoCardView.setCardBackgroundColor(getContext().getColor(R.color.secondary));
         mDayThrreeCardView.setCardBackgroundColor(getContext().getColor(R.color.colorPrimary));
+        mDayFourCardView.setCardBackgroundColor(getContext().getColor(R.color.colorPrimary));
     }
 
     private void setDayThree() {
         mDayOneTextView.setTextColor(getContext().getColor(R.color.secondary));
         mDayTwoTextView.setTextColor(getContext().getColor(R.color.secondary));
         mDayThreeTextView.setTextColor(getContext().getColor(R.color.colorPrimary));
+        mDayFourTextView.setTextColor(getContext().getColor(R.color.secondary));
 
         mDayOneCardView.setCardBackgroundColor(getContext().getColor(R.color.colorPrimary));
         mDayTwoCardView.setCardBackgroundColor(getContext().getColor(R.color.colorPrimary));
         mDayThrreeCardView.setCardBackgroundColor(getContext().getColor(R.color.secondary));
+        mDayFourCardView.setCardBackgroundColor(getContext().getColor(R.color.colorPrimary));
+    }
+
+    private void setDayFour() {
+        mDayOneTextView.setTextColor(getContext().getColor(R.color.secondary));
+        mDayTwoTextView.setTextColor(getContext().getColor(R.color.secondary));
+        mDayThreeTextView.setTextColor(getContext().getColor(R.color.secondary));
+        mDayFourTextView.setTextColor(getContext().getColor(R.color.colorPrimary));
+
+        mDayOneCardView.setCardBackgroundColor(getContext().getColor(R.color.colorPrimary));
+        mDayTwoCardView.setCardBackgroundColor(getContext().getColor(R.color.colorPrimary));
+        mDayThrreeCardView.setCardBackgroundColor(getContext().getColor(R.color.colorPrimary));
+        mDayFourCardView.setCardBackgroundColor(getContext().getColor(R.color.secondary));
     }
 
 }
