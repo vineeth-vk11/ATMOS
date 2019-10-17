@@ -382,7 +382,6 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
         mDayOneCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: Set target scroll position for day 1
                 setDayOne();
                 smoothScroller.setTargetPosition(0);
                 manager.startSmoothScroll(smoothScroller);
@@ -392,8 +391,7 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
         mDayTwoCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: Set target scroll position for day 2
-                //setDayTwo();
+                setDayTwo();
                 smoothScroller.setTargetPosition(24);
                 manager.startSmoothScroll(smoothScroller);
             }
@@ -402,8 +400,7 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
         mDayThrreeCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: Set target scroll position for day 3
-                //setDayThree();
+                setDayThree();
                 smoothScroller.setTargetPosition(44);
                 manager.startSmoothScroll(smoothScroller);
             }

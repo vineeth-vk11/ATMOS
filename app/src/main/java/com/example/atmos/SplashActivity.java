@@ -15,7 +15,6 @@ public class SplashActivity extends Activity implements Runnable {
 
     PermissionManager permissionManager;
 
-
     Thread mThread;
 
     @Override
@@ -29,7 +28,7 @@ public class SplashActivity extends Activity implements Runnable {
     @Override
     public void run(){
         try {
-            Thread.sleep(4560);
+            Thread.sleep(4550);
         }
         catch (Exception e) {
             e.printStackTrace();

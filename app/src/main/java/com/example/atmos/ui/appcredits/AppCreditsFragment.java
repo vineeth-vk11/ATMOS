@@ -20,12 +20,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AppCreditsFragment extends Fragment {
 
-    private AppCreditsViewModel appCreditsViewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        appCreditsViewModel =
-                ViewModelProviders.of(this).get(AppCreditsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_app_credits, container, false);
 
         CircleImageView imageView = root.findViewById(R.id.profile_image);

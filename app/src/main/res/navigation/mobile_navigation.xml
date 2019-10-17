@@ -3,19 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
-
-    <fragment
-        android:id="@+id/nav_home"
-        android:name="com.example.atmos.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+    app:startDestination="@+id/nav_schedule">
 
     <fragment
         android:id="@+id/nav_schedule"
         android:name="com.example.atmos.ui.schedule.ScheduleFragment"
         android:label="@string/menu_schedule"
         tools:layout="@layout/fragment_schedule" />
+
+    <fragment
+        android:id="@+id/nav_announcements"
+        android:name="com.example.atmos.ui.home.HomeFragment"
+        android:label="@string/menu_announcements"
+        tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_contact"

@@ -19,12 +19,8 @@ import com.example.atmos.R;
 public class CampusMapFragment extends Fragment {
 
     private RecyclerView rv_map;
-    private CampusMapViewModel campusMapViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        campusMapViewModel =
-                ViewModelProviders.of(this).get(CampusMapViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_campus_map, container, false);
 
         rv_map = root.findViewById(R.id.rvCampusMap);
