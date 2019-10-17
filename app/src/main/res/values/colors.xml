@@ -11,10 +11,6 @@
     <color name="textTertiary">#944B2727</color>
     <color name="drawerArrowColor">#000000</color>
 
-    <color name="colorCompetition">#FF0000</color>
-    <color name="colorWorkshop">#00FF00</color>
-    <color name="colorTalk">#FFFF00</color>
-
     <color name="textColor1">#202021</color>
     <color name="lighttextcolor">#383839</color>
     <color name="topbar_textcolor">#FFF</color>

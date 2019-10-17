@@ -56,7 +56,7 @@
                     android:textColor="@color/textTertiary"
 
                     android:textSize="30sp"
-                    tools:text="AM" />
+                    tools:text="PM" />
 
             </LinearLayout>
 
@@ -75,7 +75,7 @@
                 app:layout_constraintEnd_toStartOf="@id/event_bookmark_image_view"
                 app:layout_constraintStart_toEndOf="@id/linearLayout2"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Robowars" />
+                tools:text="The Exorcist (1973) " />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -94,22 +94,14 @@
                     android:id="@+id/party_location_text_view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textAllCaps="true"
                     android:textColor="@color/textSecondary"
                     android:textSize="17sp"
-                    android:textAllCaps="true"
-                    tools:text="G-101" />
+                    tools:text="F-102" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/schedule_event_tag_image_view"
-                        android:layout_width="6dp"
-                        android:layout_height="6dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginEnd="5dp"
-                        android:src="@drawable/circle" />
 
                     <TextView
                         android:id="@+id/party_duration_text_view"
@@ -117,22 +109,12 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/textSecondary"
                         android:textSize="15sp"
-                        tools:text="Competition" />
+                        tools:text="2hrs 15 mins" />
 
                 </LinearLayout>
 
 
             </LinearLayout>
-
-            <ImageView
-                android:id="@+id/event_bookmark_image_view"
-                android:layout_width="25.67dp"
-                android:layout_height="33dp"
-                android:layout_marginEnd="24dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/bookmark_outline" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
