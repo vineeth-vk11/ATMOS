@@ -13,6 +13,7 @@ import com.example.atmos.R;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 
 public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.ViewHolder> {
@@ -40,6 +41,7 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.ViewHolder> 
     private ArrayList<PartyEvent> mPartyEvents;
 
     public PartyAdapter(ArrayList<PartyEvent> events) {
+        Collections.sort(events);
         mPartyEvents = events;
     }
 

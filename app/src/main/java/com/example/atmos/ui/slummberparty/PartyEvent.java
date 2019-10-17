@@ -1,8 +1,10 @@
 package com.example.atmos.ui.slummberparty;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class PartyEvent {
+public class PartyEvent implements Comparable<PartyEvent>{
 
     private Date partyDate;
     private String partyName;
@@ -10,8 +12,12 @@ public class PartyEvent {
     private String partyDuration;
     private String partylanguage;
 
-    public PartyEvent(Date date, String name, String location, String duration, String language) {
-        partyDate = date;
+    public PartyEvent(String date, String name, String location, String duration, String language) {
+        try{
+            partyDate = new SimpleDateFormat("yyyy-MM-dd-HH-mm").parse(date);
+        } catch (ParseException e){
+            e.printStackTrace();
+        }
         partyName = name;
         partyLocation = location;
         partyDuration = duration;
@@ -36,5 +42,10 @@ public class PartyEvent {
 
     public String getLanguage() {
         return partylanguage;
+    }
+
+    @Override
+    public int compareTo(PartyEvent partyEvent) {
+        return this.partyDate.compareTo(partyEvent.getPartyDate());
     }
 }

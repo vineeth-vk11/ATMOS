@@ -29,6 +29,10 @@
     <string name="Competition">Competition</string>
     <string name="Workshop">Workshop</string>
     <string name="Talk">Talk</string>
+    <string name="english">English</string>
+    <string name="hindi">Hindi</string>
+    <string name="telugu">Telugu</string>
+    <string name="bengali">Bengali</string>
     <string name="none">Remove filter</string>
 
     <string name="no_announcements">There are no announcements currently</string>
