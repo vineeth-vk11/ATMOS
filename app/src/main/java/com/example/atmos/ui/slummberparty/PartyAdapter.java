@@ -23,6 +23,7 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.ViewHolder> 
         TextView nameTextView;
         TextView locationTextView;
         TextView durationTextView;
+        TextView language;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -31,6 +32,7 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.ViewHolder> 
             nameTextView = itemView.findViewById(R.id.party_name_text_view);
             locationTextView = itemView.findViewById(R.id.party_location_text_view);
             durationTextView = itemView.findViewById(R.id.party_duration_text_view);
+            language = itemView.findViewById(R.id.language);
         }
 
     }
@@ -59,6 +61,7 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.ViewHolder> 
         TextView nameTextView = holder.nameTextView;
         TextView locationTextView = holder.locationTextView;
         TextView durationTextView = holder.durationTextView;
+        TextView language = holder.language;
 
         Date time = event.getPartyDate();
         timePrimaryTextView.setText(new SimpleDateFormat("hh:mm").format(time));
@@ -67,6 +70,7 @@ public class PartyAdapter extends RecyclerView.Adapter<PartyAdapter.ViewHolder> 
         nameTextView.setText(event.getPartyName());
         locationTextView.setText(event.getPartyLocation());
         durationTextView.setText(event.getPartyDuration());
+        language.setText(event.getLanguage());
     }
 
     @Override
