@@ -77,10 +77,6 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
         rfaLayout = root.findViewById(R.id.schedule_filter_kayout);
         filterFab = root.findViewById(R.id.schedule_filter_fab);
 
-        noDayOne = 0;
-        noDayTwo = 0;
-        noDayThree = 0;
-
         displayFabOptions();
 
         progressBar.setVisibility(View.INVISIBLE);
@@ -326,24 +322,32 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
         }
     }
 
-    private ArrayList<ScheduleEvent> filterDetailList(ArrayList<ScheduleEvent> eventDetailsList, String filterBy) {
+
+    private ArrayList<ScheduleEvent> filterDetailList(ArrayList<ScheduleEvent> events, String filterBy) {
+        noDayOne = 0;
+        noDayTwo = 0;
+        noDayThree = 0;
+        ArrayList<ScheduleEvent> filteredList = new ArrayList<>();
         if (filterBy.equalsIgnoreCase("none"))
-            return eventDetailsList;
+            filteredList = events;
         else {
-            ArrayList<ScheduleEvent> filteredDetailList = new ArrayList<>();
-            for (ScheduleEvent event : eventDetailsList) {
+            filteredList = new ArrayList<>();
+            for (ScheduleEvent event : events) {
                 String eventType = event.getType();
                 if (eventType.equalsIgnoreCase(filterBy)) {
-                    filteredDetailList.add(event);
+                    filteredList.add(event);
                 }
             }
-            return filteredDetailList;
         }
+        for(ScheduleEvent event: filteredList) {
+            enterDayNoFromDate(event.getStartTime());
+        }
+        return filteredList;
     }
 
-    private void setAdapter(final ArrayList<ScheduleEvent> eventDetailsList) {
-        Collections.sort(eventDetailsList);
-        mAdapter = new ScheduleAdapter(eventDetailsList);
+    private void setAdapter(final ArrayList<ScheduleEvent> scheduleEvents) {
+        Collections.sort(scheduleEvents);
+        mAdapter = new ScheduleAdapter(scheduleEvents);
         recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -355,11 +359,11 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                int position = manager.findFirstVisibleItemPosition() + 1;
+                int position = manager.findFirstVisibleItemPosition();
                 Log.d("Position", Integer.toString(position));
-                if(eventDetailsList!=null&&!eventDetailsList.isEmpty()&&position!=0)
+                if(scheduleEvents!=null&&!scheduleEvents.isEmpty()&&position!=-1)
                 {
-                    String day = getDay(eventDetailsList.get(position).getStartTime());
+                    String day = getDay(scheduleEvents.get(position).getStartTime());
                     Log.d("Day", day);
                     switch((day)) {
                         case "19":
@@ -389,7 +393,6 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
             @Override
             public void onClick(View view) {
                 //TODO: Set target scroll position for day 1
-                setDayOne();
                 smoothScroller.setTargetPosition(0);
                 manager.startSmoothScroll(smoothScroller);
             }
@@ -399,8 +402,7 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
             @Override
             public void onClick(View view) {
                 //TODO: Set target scroll position for day 2
-                //setDayTwo();
-                smoothScroller.setTargetPosition(24);
+                smoothScroller.setTargetPosition(noDayOne);
                 manager.startSmoothScroll(smoothScroller);
             }
         });
@@ -410,7 +412,7 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
             public void onClick(View view) {
                 //TODO: Set target scroll position for day 3
                 //setDayThree();
-                smoothScroller.setTargetPosition(44);
+                smoothScroller.setTargetPosition(noDayOne + noDayTwo + 1);
                 manager.startSmoothScroll(smoothScroller);
             }
         });
