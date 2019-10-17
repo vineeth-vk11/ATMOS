@@ -2,6 +2,7 @@
 
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -28,22 +29,28 @@
         android:fontFamily="@font/rajdhani_bold"
         android:textSize="24sp"
         android:textColor="@color/secondary"/>
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:layout_constraintTop_toBottomOf="@id/atmos"
-    android:layout_marginTop="16dp"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent">
-  <TextView
+
+  <ScrollView
+      android:layout_width="412dp"
+      android:layout_height="420dp"
+      android:layout_marginTop="8dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.0"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/atmos"
+      app:layout_constraintVertical_bias="0.0">
+
+    <TextView
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/the_10th_edition_of_atmos_our_annual_techno_management_fest_returns_with_grandeur_greater_than_its_predecessors_this_18th_of_october_since_its_inception_in_2010_atmos_reputed_for_its_quality_of_workshops_quizzes_lectures_technical_exhibitions_and_competetions_is_among_the_fastest_growing_tech_fests_in_our_country_providing_one_of_the_largest_platforms_for_students_academicians_and_enterpreneurs_across_the_country_to_showcase_their_talents_in_the_fields_science_and_technology_with_a_staggeringly_high_footfall_and_participation_of_students_from_300_colleges_every_year_atmos_2019_true_to_its_theme_a_wheel_through_time_aims_to_takes_us_all_through_time"
         android:layout_marginTop="16dp"
-        android:textSize="18sp"
         android:padding="24dp"
-        android:textColor="@color/secondary"/>
-</ScrollView>
+        android:text="@string/the_10th_edition_of_atmos_our_annual_techno_management_fest_returns_with_grandeur_greater_than_its_predecessors_this_18th_of_october_since_its_inception_in_2010_atmos_reputed_for_its_quality_of_workshops_quizzes_lectures_technical_exhibitions_and_competetions_is_among_the_fastest_growing_tech_fests_in_our_country_providing_one_of_the_largest_platforms_for_students_academicians_and_enterpreneurs_across_the_country_to_showcase_their_talents_in_the_fields_science_and_technology_with_a_staggeringly_high_footfall_and_participation_of_students_from_300_colleges_every_year_atmos_2019_true_to_its_theme_a_wheel_through_time_aims_to_takes_us_all_through_time"
+        android:textColor="@color/secondary"
+        android:textSize="18sp" />
+
+  </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
 
