@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -13,13 +14,13 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toTopOf="parent"
       android:layout_marginTop="20dp"
-      />
+      android:contentDescription="@string/todo" />
 
     <TextView
         android:id="@+id/atmos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ATMOS 2019"
+        android:text="@string/atmos_2019"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/about"
@@ -27,17 +28,22 @@
         android:fontFamily="@font/rajdhani_bold"
         android:textSize="24sp"
         android:textColor="@color/secondary"/>
-
-    <TextView
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toBottomOf="@id/atmos"
+    android:layout_marginTop="16dp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent">
+  <TextView
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="The 10th edition of ATMOS, our annual techno-management fest returns with grandeur greater than its predecessors this 18th of October. Since its inception in 2010, ATMOS, reputed for its quality of workshops, quizzes,lectures, technical exhibitions, and competetions, is among the fastest growing tech-fests in our country providing one of the largest platforms for students, academicians and enterpreneurs across the country to showcase their talents in the fields science and technology.With a staggeringly high footfall and participation of students from 300 colleges every year, ATMOS 2019, true to its theme, A WHEEL THROUGH TIME, aims to takes us all through time. "
-        app:layout_constraintTop_toBottomOf="@+id/atmos"
+        android:text="@string/the_10th_edition_of_atmos_our_annual_techno_management_fest_returns_with_grandeur_greater_than_its_predecessors_this_18th_of_october_since_its_inception_in_2010_atmos_reputed_for_its_quality_of_workshops_quizzes_lectures_technical_exhibitions_and_competetions_is_among_the_fastest_growing_tech_fests_in_our_country_providing_one_of_the_largest_platforms_for_students_academicians_and_enterpreneurs_across_the_country_to_showcase_their_talents_in_the_fields_science_and_technology_with_a_staggeringly_high_footfall_and_participation_of_students_from_300_colleges_every_year_atmos_2019_true_to_its_theme_a_wheel_through_time_aims_to_takes_us_all_through_time"
         android:layout_marginTop="16dp"
         android:textSize="18sp"
         android:padding="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:textColor="@color/secondary"/>
+</ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
+
