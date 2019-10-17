@@ -98,7 +98,7 @@ public class SlumberPartyFragment extends Fragment implements RapidFloatingActio
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                int position = manager.findFirstVisibleItemPosition();
+                int position = manager.findFirstVisibleItemPosition()+1;
 
                 if(mPartyList!=null && !mPartyList.isEmpty() && position!=0)
                 {
@@ -255,6 +255,47 @@ public class SlumberPartyFragment extends Fragment implements RapidFloatingActio
 
     private void addDateToPartyList() {
         //TODO: Add data over here
+        mPartyList.add(new PartyEvent("2019-10-18-22-00", "The Exorcist(1973)", "F102", "2hrs 15min", "English"));
+        mPartyList.add(new PartyEvent("2019-10-19-00-15", "1408(2007)", "F102", "1hrs 52mins", "English"));
+        mPartyList.add(new PartyEvent("2019-10-19-2-10", "Mama(2013)", "F102", "1hrs 40mins", "English"));
+        mPartyList.add(new PartyEvent("2019-10-19-3-50", "Shutter(2004)", "F102", "1hrs 37mins", "English"));
+        mPartyList.add(new PartyEvent("2019-10-19-22-00", "Halloween(2018)", "F102", "1hrs 44mins", "English"));
+        mPartyList.add(new PartyEvent("2019-10-19-23-55", "Identity(2003)", "F102", "1hrs 31mins", "English"));
+        mPartyList.add(new PartyEvent("2019-10-20-1-35", "Ju-On: The Grudge(2002)", "F102", "1hrs 40mins", "English"));
+        mPartyList.add(new PartyEvent("2019-10-20-3-30", "The Strangers(2008)", "F102", "1hrs 31mins", "English"));
+        mPartyList.add(new PartyEvent("2019-10-20-22-00", "Hell Fest(2018)", "F102", "1hrs 30mins", "English"));
+        mPartyList.add(new PartyEvent("2019-10-20-23-40", "Us(2019)", "F102", "2hrs 1mins", "English"));
+        mPartyList.add(new PartyEvent("2019-10-21-1-50", "It Follows(2014)", "F102", "1hrs 47mins", "English"));
+
+        mPartyList.add(new PartyEvent("2019-10-18-22-00", "Thief(1981)", "F103", "2hrs 6mins", "English"));
+        mPartyList.add(new PartyEvent("2019-10-19-00-20", "Autumn Tale(1998)", "F103", "2hrs", "English"));
+        mPartyList.add(new PartyEvent("2019-10-19-2-30", "Harakiri", "F103", "2hrs 14mins", "English"));
+        mPartyList.add(new PartyEvent("2019-10-19-22-00", "Where is the Friend's Home?(1987)", "F103", "1hrs 27mins", "English"));
+        mPartyList.add(new PartyEvent("2019-10-19-23-40", "35 Shots of Rum(2008)", "F103", "1hrs 45mins", "English"));
+        mPartyList.add(new PartyEvent("2019-10-20-1-30", "All That Heaven Allows(1955)", "F103", "1hrs 29mins", "English"));
+        mPartyList.add(new PartyEvent("2019-10-20-3-10", "Rosetta(1999)", "F103", "1hrs 35mins", "English"));
+        mPartyList.add(new PartyEvent("2019-10-20-22-00", "Blow Out(1981)", "F103", "1hrs 53mins", "English"));
+        mPartyList.add(new PartyEvent("2019-10-21-00-01", "Mahanagar(1963)", "F103", "2hrs 16mins", "Bengali"));
+
+        mPartyList.add(new PartyEvent("2019-10-18-22-00", "Jersey(2019)", "F105", "2hr 37min", "Telugu"));
+        mPartyList.add(new PartyEvent("2019-10-19-00-40", "Kabir Singh(2019)", "F105", "2hr 52min", "Hindi"));
+        mPartyList.add(new PartyEvent("2019-10-19-3-35", "Gang Leader(2019)", "F105", "2hr 35min", "Telugu"));
+        mPartyList.add(new PartyEvent("2019-10-19-22-00", "Agent Sai Srinivas Athreya(2019)", "F105", "1hr 50min", "Telugu"));
+        mPartyList.add(new PartyEvent("2019-10-20-00-35", "Game Over(2019)", "F105", "1hr 30min", "Telugu"));
+        mPartyList.add(new PartyEvent("2019-10-20-2-25", "Go Goa Gone(2013)", "F105", "None", "Hindi"));
+        mPartyList.add(new PartyEvent("2019-10-20-22-00", "Brochevarevarura(2019)", "F105", "2hr 15min", "Telugu"));
+        mPartyList.add(new PartyEvent("2019-10-21-00-30", "Super Deluxe(2019)", "F105", "2hr 56min", "Hindi"));
+
+        mPartyList.add(new PartyEvent("2019-10-18-22-00", "Jaane Tu Ya Jaane Na(2008)", "F104", "2hr 35min", "Hindi"));
+        mPartyList.add(new PartyEvent("2019-10-19-00-40", "Angry Birds 2(2019)", "F104", "1hr 37min", "Hindi"));
+        mPartyList.add(new PartyEvent("2019-10-19-2-20", "Vicky Donor(2012)", "F104", "2hr 5min", "Hindi"));
+        mPartyList.add(new PartyEvent("2019-10-19-22-00", "Delhi Belly(2011)", "F104", "1hr 43min", "Hindi"));
+        mPartyList.add(new PartyEvent("2019-10-19-23-50", "Batla House(2019)", "F104", "2r 26min", "Hindi"));
+        mPartyList.add(new PartyEvent("2019-10-20-2-20", "Top Gun(1996)", "F104", "1hr 50min", "Hindi"));
+        mPartyList.add(new PartyEvent("2019-10-20-22-00", "Gangs of Wasseypur Part 1(2012)", "F104", "2hr 40min", "Hindi"));
+        mPartyList.add(new PartyEvent("2019-10-21-00-40", "Gangs of Wasseypur Part 2(2012)", "F104", "2hr 40min", "Hindi"));
+
+
     }
 
     private void setDayOne() {
