@@ -8,12 +8,14 @@ public class PartyEvent {
     private String partyName;
     private String partyLocation;
     private String partyDuration;
+    private String partylanguage;
 
-    public PartyEvent(Date date, String name, String location, String duration) {
+    public PartyEvent(Date date, String name, String location, String duration, String language) {
         partyDate = date;
         partyName = name;
         partyLocation = location;
         partyDuration = duration;
+        partylanguage = language;
     }
 
     public Date getPartyDate() {
@@ -30,5 +32,9 @@ public class PartyEvent {
 
     public String getPartyDuration() {
         return partyDuration;
+    }
+
+    public String getLanguage() {
+        return partylanguage;
     }
 }

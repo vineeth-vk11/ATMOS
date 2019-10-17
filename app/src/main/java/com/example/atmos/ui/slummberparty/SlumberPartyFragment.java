@@ -128,7 +128,18 @@ public class SlumberPartyFragment extends Fragment {
 
     private void addDateToPartyList() {
         //TODO: Add data over here
-        mPartyList.add(new PartyEvent(new Date(), "Random123", "Auditorium", "2hrs 5mins"));
+        mPartyList.add(new PartyEvent(new Date(), "The Exorcist", "F102", "2hrs 15min", "English"));
+        mPartyList.add(new PartyEvent(new Date(), "1408(2007)", "F102", "2hrs 5mins", "English"));
+        mPartyList.add(new PartyEvent(new Date(), "Mama(2013)", "F102", "2hrs 5mins", "English"));
+        mPartyList.add(new PartyEvent(new Date(), "Shutter(2004)", "F102", "2hrs 5mins", "English"));
+        mPartyList.add(new PartyEvent(new Date(), "Halloween(2018)", "F102", "2hrs 5mins", "English"));
+        mPartyList.add(new PartyEvent(new Date(), "Identity(2003)", "F102", "2hrs 5mins", "English"));
+        mPartyList.add(new PartyEvent(new Date(), "Ju-On: The Grudge(2002)", "F102", "2hrs 5mins", "English"));
+        mPartyList.add(new PartyEvent(new Date(), "The Strangers(2008)", "F102", "2hrs 5mins", "English"));
+        mPartyList.add(new PartyEvent(new Date(), "Hell Fest(2018)", "F102", "2hrs 5mins", "English"));
+        mPartyList.add(new PartyEvent(new Date(), "Us(2019)", "F102", "2hrs 5mins", "English"));
+        mPartyList.add(new PartyEvent(new Date(), "It Follows(2014)", "F102", "2hrs 5mins", "English"));
+
     }
 
     private void setDayOne() {
