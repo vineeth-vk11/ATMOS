@@ -92,7 +92,9 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
     private final int FILTER_COMPETITION = 0;
     private final int FILTER_WORKSHOP = 1;
     private final int FILTER_TALK = 2;
-    private final int NO_FILTER = 3;
+    private final int FILTER_PROSHOW = 3;
+    private final int NO_FILTER = 4;
+
 
     private void displayFabOptions() {
         RapidFloatingActionContentLabelList fabContent = new RapidFloatingActionContentLabelList(context);
@@ -109,6 +111,10 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
         options.add(new RFACLabelItem<Integer>()
                 .setLabel(getString(R.string.Talk))
                 .setWrapper(FILTER_TALK)
+        );
+        options.add(new RFACLabelItem<Integer>()
+                .setLabel(getString(R.string.Proshow))
+                .setWrapper(FILTER_PROSHOW)
         );
         options.add(new RFACLabelItem<Integer>()
                 .setLabel(getString(R.string.none))
@@ -137,6 +143,11 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
                 mAdapter.notifyDataSetChanged();
                 filterFabHelpler.toggleContent();
                 break;
+            case FILTER_PROSHOW:
+                filterRecyclerView(FILTER_PROSHOW);
+                mAdapter.notifyDataSetChanged();
+                filterFabHelpler.toggleContent();
+                break;
             case NO_FILTER:
             default:
                 filterRecyclerView(NO_FILTER);
@@ -153,6 +164,8 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
             filterTag = "workshop";
         else if (filterBy == FILTER_TALK)
             filterTag = "talk";
+        else if (filterBy == FILTER_PROSHOW)
+            filterTag = "proshow";
         else
             filterTag = "none";
         setAdapter(filterDetailList(realmList, filterTag));
@@ -209,7 +222,7 @@ public class ScheduleFragment extends Fragment implements RapidFloatingActionCon
                     for (int i = 0; i < eventDetailsList.size(); i++) {
                         // Log.d("Api response",eventDetailsList.get(i));
                         //System.out.println(eventDetailsList.get(i));
-                        if(eventDetailsList.get(i).getType().equalsIgnoreCase("Workshop")||eventDetailsList.get(i).getType().equalsIgnoreCase("Competition")||eventDetailsList.get(i).getType().equalsIgnoreCase("Talk"))
+                        if(eventDetailsList.get(i).getType().equalsIgnoreCase("Workshop")||eventDetailsList.get(i).getType().equalsIgnoreCase("Competition")||eventDetailsList.get(i).getType().equalsIgnoreCase("Talk")||eventDetailsList.get(i).getType().equalsIgnoreCase("Proshow"))
                         {
                             if(eventDetailsList.get(i).getRoute()!=null&&!eventDetailsList.get(i).getRoute().equals("")) {
                                 addDatatoRealm(eventDetailsList.get(i));
