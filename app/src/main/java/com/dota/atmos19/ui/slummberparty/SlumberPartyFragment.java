@@ -75,7 +75,12 @@ public class SlumberPartyFragment extends Fragment implements RapidFloatingActio
     private static final int FILTER_HINDI = 1;
     private static final int FILTER_TELUGU = 2;
     private static final int FILTER_BENGALI = 3;
-    private static final int FILTER_NONE = 4;
+    private static final int FILTER_TAMIL = 4;
+    private static final int FILTER_FRENCH = 5;
+    private static final int FILTER_JAPANESE = 6;
+    private static final int FILTER_THAI= 7;
+    private static final int FILTER_PERSIAN = 8;
+    private static final int FILTER_NONE = 9;
 
     private void setAdapter(int filterBy) {
 
@@ -182,6 +187,26 @@ public class SlumberPartyFragment extends Fragment implements RapidFloatingActio
                 .setWrapper(FILTER_BENGALI)
         );
         options.add(new RFACLabelItem<Integer>()
+                .setLabel(getString(R.string.tamil))
+                .setWrapper(FILTER_TAMIL)
+        );
+        options.add(new RFACLabelItem<Integer>()
+                .setLabel(getString(R.string.french))
+                .setWrapper(FILTER_FRENCH)
+        );
+        options.add(new RFACLabelItem<Integer>()
+                .setLabel(getString(R.string.japanese))
+                .setWrapper(FILTER_JAPANESE)
+        );
+        options.add(new RFACLabelItem<Integer>()
+                .setLabel(getString(R.string.thai))
+                .setWrapper(FILTER_THAI)
+        );
+        options.add(new RFACLabelItem<Integer>()
+                .setLabel(getString(R.string.persian))
+                .setWrapper(FILTER_PERSIAN)
+        );
+        options.add(new RFACLabelItem<Integer>()
                 .setLabel(getString(R.string.none))
                 .setWrapper(FILTER_NONE)
         );
@@ -212,6 +237,31 @@ public class SlumberPartyFragment extends Fragment implements RapidFloatingActio
                 mAdapter.notifyDataSetChanged();
                 filterFabHelpler.toggleContent();
                 break;
+            case FILTER_TAMIL:
+                setAdapter(FILTER_TAMIL);
+                mAdapter.notifyDataSetChanged();
+                filterFabHelpler.toggleContent();
+                break;
+            case FILTER_FRENCH:
+                setAdapter(FILTER_FRENCH);
+                mAdapter.notifyDataSetChanged();
+                filterFabHelpler.toggleContent();
+                break;
+            case FILTER_JAPANESE:
+                setAdapter(FILTER_JAPANESE);
+                mAdapter.notifyDataSetChanged();
+                filterFabHelpler.toggleContent();
+                break;
+            case FILTER_THAI:
+                setAdapter(FILTER_THAI);
+                mAdapter.notifyDataSetChanged();
+                filterFabHelpler.toggleContent();
+                break;
+            case FILTER_PERSIAN:
+                setAdapter(FILTER_PERSIAN);
+                mAdapter.notifyDataSetChanged();
+                filterFabHelpler.toggleContent();
+                break;
             case FILTER_NONE:
             default:
                 setAdapter(FILTER_NONE);
@@ -235,6 +285,16 @@ public class SlumberPartyFragment extends Fragment implements RapidFloatingActio
             filterBy = getString(R.string.telugu);
         else if(lang==FILTER_BENGALI)
             filterBy = getString(R.string.bengali);
+        else if(lang==FILTER_FRENCH)
+            filterBy = getString(R.string.french);
+        else if(lang==FILTER_JAPANESE)
+            filterBy = getString(R.string.japanese);
+        else if(lang==FILTER_THAI)
+            filterBy = getString(R.string.thai);
+        else if(lang==FILTER_TAMIL)
+            filterBy = getString(R.string.tamil);
+        else if(lang==FILTER_PERSIAN)
+            filterBy = getString(R.string.persian);
         return filterBy;
     }
 
@@ -277,22 +337,22 @@ public class SlumberPartyFragment extends Fragment implements RapidFloatingActio
         mPartyList.add(new PartyEvent("2019-10-18-22-00", "The Exorcist(1973)", "F102", "2hrs 15min", "English"));
         mPartyList.add(new PartyEvent("2019-10-19-00-15", "1408(2007)", "F102", "1hrs 52mins", "English"));
         mPartyList.add(new PartyEvent("2019-10-19-2-10", "Mama(2013)", "F102", "1hrs 40mins", "English"));
-        mPartyList.add(new PartyEvent("2019-10-19-3-50", "Shutter(2004)", "F102", "1hrs 37mins", "English"));
+        mPartyList.add(new PartyEvent("2019-10-19-3-50", "Shutter(2004)", "F102", "1hrs 37mins", "Thai"));
         mPartyList.add(new PartyEvent("2019-10-19-22-00", "Halloween(2018)", "F102", "1hrs 44mins", "English"));
         mPartyList.add(new PartyEvent("2019-10-19-23-55", "Identity(2003)", "F102", "1hrs 31mins", "English"));
-        mPartyList.add(new PartyEvent("2019-10-20-1-35", "Ju-On: The Grudge(2002)", "F102", "1hrs 40mins", "English"));
+        mPartyList.add(new PartyEvent("2019-10-20-1-35", "Ju-On: The Grudge(2002)", "F102", "1hrs 40mins", "Japanese"));
         mPartyList.add(new PartyEvent("2019-10-20-3-30", "The Strangers(2008)", "F102", "1hrs 31mins", "English"));
         mPartyList.add(new PartyEvent("2019-10-20-22-00", "Hell Fest(2018)", "F102", "1hrs 30mins", "English"));
         mPartyList.add(new PartyEvent("2019-10-20-23-40", "Us(2019)", "F102", "2hrs 1mins", "English"));
         mPartyList.add(new PartyEvent("2019-10-21-1-50", "It Follows(2014)", "F102", "1hrs 47mins", "English"));
 
         mPartyList.add(new PartyEvent("2019-10-18-22-00", "Thief(1981)", "F103", "2hrs 6mins", "English"));
-        mPartyList.add(new PartyEvent("2019-10-19-00-20", "Autumn Tale(1998)", "F103", "2hrs", "English"));
-        mPartyList.add(new PartyEvent("2019-10-19-2-30", "Harakiri", "F103", "2hrs 14mins", "English"));
-        mPartyList.add(new PartyEvent("2019-10-19-22-00", "Where is the Friend's Home?(1987)", "F103", "1hrs 27mins", "English"));
-        mPartyList.add(new PartyEvent("2019-10-19-23-40", "35 Shots of Rum(2008)", "F103", "1hrs 45mins", "English"));
+        mPartyList.add(new PartyEvent("2019-10-19-00-20", "Autumn Tale(1998)", "F103", "2hrs", "French"));
+        mPartyList.add(new PartyEvent("2019-10-19-2-30", "Harakiri", "F103", "2hrs 14mins", "Japanese"));
+        mPartyList.add(new PartyEvent("2019-10-19-22-00", "Where is the Friend's Home?(1987)", "F103", "1hrs 27mins", "Persian"));
+        mPartyList.add(new PartyEvent("2019-10-19-23-40", "35 Shots of Rum(2008)", "F103", "1hrs 45mins", "French"));
         mPartyList.add(new PartyEvent("2019-10-20-1-30", "All That Heaven Allows(1955)", "F103", "1hrs 29mins", "English"));
-        mPartyList.add(new PartyEvent("2019-10-20-3-10", "Rosetta(1999)", "F103", "1hrs 35mins", "English"));
+        mPartyList.add(new PartyEvent("2019-10-20-3-10", "Rosetta(1999)", "F103", "1hrs 35mins", "French"));
         mPartyList.add(new PartyEvent("2019-10-20-22-00", "Blow Out(1981)", "F103", "1hrs 53mins", "English"));
         mPartyList.add(new PartyEvent("2019-10-21-00-01", "Mahanagar(1963)", "F103", "2hrs 16mins", "Bengali"));
 
@@ -303,7 +363,7 @@ public class SlumberPartyFragment extends Fragment implements RapidFloatingActio
         mPartyList.add(new PartyEvent("2019-10-20-00-35", "Game Over(2019)", "F105", "1hr 30min", "Telugu"));
         mPartyList.add(new PartyEvent("2019-10-20-2-25", "Go Goa Gone(2013)", "F105", "None", "Hindi"));
         mPartyList.add(new PartyEvent("2019-10-20-22-00", "Brochevarevarura(2019)", "F105", "2hr 15min", "Telugu"));
-        mPartyList.add(new PartyEvent("2019-10-21-00-30", "Super Deluxe(2019)", "F105", "2hr 56min", "Hindi"));
+        mPartyList.add(new PartyEvent("2019-10-21-00-30", "Super Deluxe(2019)", "F105", "2hr 56min", "Tamil"));
 
         mPartyList.add(new PartyEvent("2019-10-18-22-00", "Jaane Tu Ya Jaane Na(2008)", "F104", "2hr 35min", "Hindi"));
         mPartyList.add(new PartyEvent("2019-10-19-00-40", "Angry Birds 2(2019)", "F104", "1hr 37min", "English"));

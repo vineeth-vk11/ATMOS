@@ -116,6 +116,10 @@ class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
             tagTextView.setText("Workshop");
             tagImageView.setColorFilter(Color.GREEN);
         }
+        else if(event.getType().equals("Proshow")) {
+            tagTextView.setText("Proshow");
+            tagImageView.setColorFilter(Color.BLUE);
+        }
         else {
             tagTextView.setText(mContext.getString(R.string.Talk));
             tagImageView.setColorFilter(Color.YELLOW);
